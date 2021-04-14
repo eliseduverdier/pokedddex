@@ -16,7 +16,7 @@ alias sf='php bin/console --env=dev' \
 [x] install sf and librairies
 [x] add controllers 
 [x] DB and fixtures
-[] doctrine mapping and import command
+[x] doctrine mapping and import command
 [] set controllers and api routes
 [] validates input (POST, PUT)
 [] validates input (GET, DELETE)

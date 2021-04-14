@@ -4,6 +4,7 @@ namespace App\UI\Command;
 
 use App\Domain\Entity\Pokemon;
 use App\Domain\Entity\Type;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -32,8 +33,9 @@ class LoadFixtures extends Command
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
+     * @return int
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -41,10 +43,12 @@ class LoadFixtures extends Command
             $rows = $this->parseCSV();
             $this->loadInDb($rows);
 
-            $output->writeln("<success>Successfully loaded fixtures !</success>");
+            $output->writeln('Successfully loaded fixtures !');
+
             return Command::SUCCESS;
         } catch (\Exception $e) {
-            $output->writeln("<error>{$e->getMessage()}</error>");
+            $output->writeln("Error: {$e->getMessage()}");
+
             return Command::FAILURE;
         }
     }
@@ -62,6 +66,7 @@ class LoadFixtures extends Command
             }
             fclose($handle);
         }
+
         return $rows;
     }
 
@@ -74,7 +79,11 @@ class LoadFixtures extends Command
         $types = array_unique(array_column($rows, 'Type 1') + array_column($rows, 'Type 2'));
         $typeEntities = []; // Where we will store Type Objects for Pokemons later
         foreach ($types as $typeName) {
-            $typeEntity = (new Type($typeName));
+            $typeEntity = (new Type(
+                $typeName,
+                new DateTime(),
+                new DateTime()
+            ));
             $typeEntities[$typeName] = $typeEntity;
 
             $this->em->persist($typeEntity);
@@ -84,6 +93,7 @@ class LoadFixtures extends Command
         // 2. Load pokemons
         foreach ($rows as $line) {
             $pokemon = (new Pokemon(
+                $line['#'],
                 $line['Name'],
                 $typeEntities[$line['Type 1']] ?? null,
                 $typeEntities[$line['Type 2']] ?? null,
@@ -95,7 +105,9 @@ class LoadFixtures extends Command
                 $line['Sp. Def'],
                 $line['Speed'],
                 $line['Generation'],
-                $line['Legendary']
+                $line['Legendary'] === 'True', // map to boolean
+                new DateTime(),
+                new DateTime()
             ));
             $this->em->persist($pokemon);
         }

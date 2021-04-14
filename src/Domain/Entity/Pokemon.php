@@ -2,14 +2,14 @@
 
 namespace App\Domain\Entity;
 
-use DateTimeImmutable;
+use DateTime;
 
 class Pokemon
 {
     use IdTrait;
-    use DateTrait;
 
     public function __construct(
+        protected string $number,
         protected string $name,
         protected ?Type $type1,
         protected ?Type $type2,
@@ -21,11 +21,16 @@ class Pokemon
         protected int $specialDefense,
         protected int $speed,
         protected int $generation,
-        protected bool $legendary
+        protected bool $legendary,
+        protected ?DateTime $createdAt,
+        protected ?DateTime $updatedAt
     ) {
-        $this->legendary = $legendary === 'True'; // map to boolean
-        $this->createdAt = new DateTimeImmutable();
-        $this->updatedAt = new DateTimeImmutable();
+    }
+
+    /** @return int */
+    public function getNumber(): int
+    {
+        return $this->number;
     }
 
     /** @return string */
@@ -38,6 +43,12 @@ class Pokemon
     public function getType1(): ?Type
     {
         return $this->type1;
+    }
+
+    /** @return string|null */
+    public function getType1Name(): string
+    {
+        return $this->type1->getName();
     }
 
     /** @return Type|null */
@@ -100,6 +111,26 @@ class Pokemon
         return $this->legendary;
     }
 
+    /** @return string */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt; //->format('c');
+    }
+
+    /** @return string */
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updatedAt; //->format('c');
+    }
+
+
+
+    /** @return self */
+    public function setNumber(int $number): self
+    {
+        $this->number = $number;
+        return $this;
+    }
 
     /** @return self */
     public function setName(string $name): self
@@ -182,6 +213,22 @@ class Pokemon
     public function setLegendary(bool $legendary): self
     {
         $this->legendary = $legendary;
+        return $this;
+    }
+
+    /** @return self */
+    public function setCreatedAt(DateTime $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /** @return self */
+    public function setUpdatedAt(DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
         return $this;
     }
 }

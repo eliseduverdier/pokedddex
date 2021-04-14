@@ -1,6 +1,6 @@
 App\Domain\Entity\Pokemon:
     type: entity
-    # repositoryClass: App\Infra\Repository\PokemonRepository
+    repositoryClass: App\Infra\Repository\PokemonRepository
     table: pokemon
     id:
       id:
@@ -10,6 +10,8 @@ App\Domain\Entity\Pokemon:
         customIdGenerator:
             class: Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator
     fields:
+      number:
+        type: integer
       name: 
         type: string
         length: 128

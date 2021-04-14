@@ -1,6 +1,6 @@
 App\Domain\Entity\Type:
     type: entity
-
+    repositoryClass: App\Infra\Repository\TypeRepository
     table: type
     id:
       id:
@@ -12,6 +12,5 @@ App\Domain\Entity\Type:
     fields:
       name:
         type: string
-        length: 50
+        length: 64
         unique: true
-    
