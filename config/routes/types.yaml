@@ -1,0 +1,4 @@
+list_types:
+    path:       /types
+    controller: App\UI\Controller\ListTypes
+    methods:    GET

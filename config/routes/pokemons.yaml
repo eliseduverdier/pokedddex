@@ -1,31 +1,24 @@
 list_pokemons:
     path:       /pokemons
-    controller: App\UI\Controller\ListPokemon
+    controller: App\UI\Controller\ListPokemons
     methods:    GET
 
 get_pokemon:
-    path:       /pokemon/{id}
+    path:       /pokemon/{name}
     controller: App\UI\Controller\GetPokemon
     methods:    GET
 
 create_pokemon:
-    path:       /pokemons/{id}
+    path:       /pokemon
     controller: App\UI\Controller\CreatePokemon
     methods:    POST
 
 update_pokemon:
-    path:       /pokemons/{id}
+    path:       /pokemon/{name}
     controller: App\UI\Controller\UpdatePokemon
     methods:    PUT
 
 delete_pokemon:
-    path:       /pokemons/{id}
+    path:       /pokemon/{name}
     controller: App\UI\Controller\DeletePokemon
     methods:    DELETE
-
-
-
-list_types:
-    path:       /types
-    controller: App\UI\Controller\GetTypes
-    methods:    GET

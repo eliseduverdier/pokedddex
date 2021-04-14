@@ -2,21 +2,21 @@
 
 namespace App\UI\Controller;
 
-use App\Infra\Repository\PokemonRepository;
+use App\Infra\Repository\TypeRepository;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ListPokemons
+ * Class ListTypes
  */
-class ListPokemons
+class ListTypes
 {
     /**
-     * @param PokemonRepository $repository
+     * @param TypeRepository $repository
      */
     public function __construct(
-        protected PokemonRepository $repository
+        protected TypeRepository $repository
     ) {
     }
 
@@ -27,9 +27,9 @@ class ListPokemons
     {
         $serializer = SerializerBuilder::create()->build();
 
-        $pokemons = $this->repository->findAll();
+        $types = $this->repository->findAll();
         return new JsonResponse(
-            $serializer->serialize($pokemons, 'json'),
+            $serializer->serialize($types, 'json'),
             Response::HTTP_OK,
             [],
             true
