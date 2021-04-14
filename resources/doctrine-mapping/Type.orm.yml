@@ -1,0 +1,17 @@
+App\Domain\Entity\Type:
+    type: entity
+
+    table: type
+    id:
+      id:
+        type: uuid
+        generator:
+            strategy: CUSTOM
+        customIdGenerator:
+            class: Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator
+    fields:
+      name:
+        type: string
+        length: 50
+        unique: true
+    

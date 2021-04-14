@@ -1,0 +1,45 @@
+App\Domain\Entity\Pokemon:
+    type: entity
+    # repositoryClass: App\Infra\Repository\PokemonRepository
+    table: pokemon
+    id:
+      id:
+        type: uuid
+        generator:
+            strategy: CUSTOM
+        customIdGenerator:
+            class: Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator
+    fields:
+      name: 
+        type: string
+        length: 128
+        unique: true
+      total:
+        type: integer
+      hp:
+        type: integer
+      attack:
+        type: integer
+      defense:
+        type: integer
+      specialAttack:
+        type: integer
+      specialDefense:
+        type: integer
+      speed:
+        type: integer
+      generation:
+        type: integer
+      legendary:
+        type: boolean
+      createdAt:
+        type: datetime
+      updatedAt:
+        type: datetime
+    manyToOne:
+        type1:
+            targetEntity: App\Domain\Entity\Type
+            nullable: true
+        type2:
+            targetEntity: App\Domain\Entity\Type
+            nullable: true
