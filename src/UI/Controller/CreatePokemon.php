@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class CreatePokemon
  */
-class CreatePokemon
+class CreatePokemon extends AbstractController
 {
     public function __invoke(Request $request)
     {

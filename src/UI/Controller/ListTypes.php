@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class ListTypes
  */
-class ListTypes
+class ListTypes extends AbstractController
 {
     /**
      * @param TypeRepository $repository
@@ -25,11 +25,9 @@ class ListTypes
      */
     public function __invoke(): JsonResponse
     {
-        $serializer = SerializerBuilder::create()->build();
-
         $types = $this->repository->findAll();
         return new JsonResponse(
-            $serializer->serialize($types, 'json'),
+            $this->serializer->serialize($types, 'json'),
             Response::HTTP_OK,
             [],
             true

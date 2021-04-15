@@ -11,5 +11,5 @@ doctrine:
             App:
                 is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/resources/doctrine-mapping'
+                dir: '%kernel.project_dir%/resources/config/doctrine-mapping'
                 prefix: App\Domain\Entity

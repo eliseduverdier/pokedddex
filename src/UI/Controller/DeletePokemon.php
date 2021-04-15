@@ -5,6 +5,6 @@ namespace App\UI\Controller;
 /**
  * Class DeletePokemon
  */
-class DeletePokemon
+class DeletePokemon extends AbstractController
 {
 }

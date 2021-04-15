@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Class GetPokemon
  */
-class GetPokemon
+class GetPokemon extends AbstractController
 {
     /**
      * @param PokemonRepository $repository
@@ -25,11 +25,9 @@ class GetPokemon
      */
     public function __invoke(string $name): JsonResponse
     {
-        $serializer = SerializerBuilder::create()->build();
-
         $pokemon = $this->repository->findOneBy(['name' => $name]);
         return new JsonResponse(
-            $serializer->serialize($pokemon, 'json'),
+            $this->serializer->serialize($pokemon, 'json'),
             Response::HTTP_OK,
             [],
             true

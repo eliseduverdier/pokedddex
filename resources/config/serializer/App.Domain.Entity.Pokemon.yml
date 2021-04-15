@@ -1,0 +1,8 @@
+App\Domain\Entity\Pokemon:
+  properties:
+    id:
+      exclude: true
+    createdAt:
+      exclude: true
+    updatedAt:
+      exclude: true
