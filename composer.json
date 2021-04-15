@@ -9,6 +9,7 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "beberlei/assert": "^3.3",
         "composer/package-versions-deprecated": "1.11.99.1",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.1",

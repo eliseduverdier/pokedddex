@@ -58,4 +58,20 @@ class PokemonRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getTypesName()
+    {
+        $names = $this->createQueryBuilder('p')
+            ->select('distinct(t.name)')
+            ->leftJoin('p.type1', 't')
+            ->getQuery()
+            ->getResult();
+
+        return array_column($names, 1);
+    }
+
+    public function getAttributesName()
+    {
+        return $this->getClassMetadata('Pokemons')->getColumnNames();
+    }
 }
