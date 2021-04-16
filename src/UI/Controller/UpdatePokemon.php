@@ -49,7 +49,7 @@ class UpdatePokemon extends AbstractController
 
         $name = $this->command->__invoke($pokemon, $payload);
 
-        return new JsonResponse('', Response::HTTP_NO_CONTENT);
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
     protected function isSelfRenamed($violations, $pokemon, $payload)

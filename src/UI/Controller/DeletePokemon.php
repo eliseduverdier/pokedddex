@@ -2,6 +2,7 @@
 
 namespace App\UI\Controller;
 
+use App\App\Command\DeletePokemon as DeletePokemonCommand;
 use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,8 @@ class DeletePokemon extends AbstractController
      * @param PokemonRepository $repository
      */
     public function __construct(
-        protected PokemonRepository $repository
+        protected PokemonRepository $repository,
+        protected DeletePokemonCommand $command
     ) {
         parent::__construct();
     }
@@ -30,11 +32,8 @@ class DeletePokemon extends AbstractController
             return $this->notFoundResponse($name);
         }
 
-        return new JsonResponse(
-            $this->serializer->serialize($pokemon, 'json'),
-            Response::HTTP_OK,
-            [],
-            true
-        );
+        $this->command->__invoke($pokemon);
+
+        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 }

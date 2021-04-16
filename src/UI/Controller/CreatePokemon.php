@@ -43,6 +43,6 @@ class CreatePokemon extends AbstractController
 
         $name = $this->command->__invoke($payload);
 
-        return new JsonResponse('', Response::HTTP_CREATED, ['Location' => "/pokemon/$name"]);
+        return new JsonResponse(null, Response::HTTP_CREATED, ['Location' => "/pokemon/$name"]);
     }
 }
