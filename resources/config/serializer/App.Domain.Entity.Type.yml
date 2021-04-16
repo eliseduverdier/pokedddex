@@ -6,3 +6,5 @@ App\Domain\Entity\Type:
       exclude: true
     updatedAt:
       exclude: true
+    name:
+      type: string

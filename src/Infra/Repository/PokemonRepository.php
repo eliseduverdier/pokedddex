@@ -3,6 +3,7 @@
 namespace App\Infra\Repository;
 
 use App\Domain\Entity\Pokemon;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query\Expr;
@@ -10,8 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class PokemonRepository extends ServiceEntityRepository
 {
-    const LIMIT = 60; // TODO in config
-
+    const LIMIT = 60;
 
     public function __construct(protected ManagerRegistry $registry)
     {
@@ -70,8 +70,28 @@ class PokemonRepository extends ServiceEntityRepository
         return array_column($names, 1);
     }
 
+    public function getPokemonNames()
+    {
+        $names = $this->createQueryBuilder('p')
+            ->select('p.name')
+            ->getQuery()
+            ->getResult();
+
+        return array_column($names, 'name');
+    }
+
     public function getAttributesName()
     {
         return $this->getClassMetadata('Pokemons')->getColumnNames();
+    }
+
+    public function getNewNumber()
+    {
+        $maxNumber = $this->createQueryBuilder('p')
+            ->select('max(p.number)')
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $maxNumber[1] + 1;
     }
 }

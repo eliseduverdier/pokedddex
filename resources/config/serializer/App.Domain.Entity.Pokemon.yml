@@ -6,3 +6,13 @@ App\Domain\Entity\Pokemon:
       exclude: true
     updatedAt:
       exclude: true
+    type1:
+      type: string
+      access_type: public_method
+      accessor:
+        getter: getType1Name
+    type2:
+      type: string
+      access_type: public_method
+      accessor:
+        getter: getType2Name

@@ -1,34 +1,25 @@
 <?php
 
-namespace App\Domain\Entity;
-
-use DateTime;
+namespace App\Domain\Payload;
 
 class Pokemon
 {
-    use IdTrait;
+    protected $number;
+    protected string $name;
+    protected string $type1;
+    protected string $type2;
+    protected int $total;
+    protected int $hp;
+    protected int $attack;
+    protected int $defense;
+    protected int $specialAttack;
+    protected int $specialDefense;
+    protected int $speed;
+    protected int $generation;
+    protected bool $legendary;
 
-    public function __construct(
-        protected string $number,
-        protected string $name,
-        protected ?Type $type1,
-        protected ?Type $type2,
-        protected int $total,
-        protected int $hp,
-        protected int $attack,
-        protected int $defense,
-        protected int $specialAttack,
-        protected int $specialDefense,
-        protected int $speed,
-        protected int $generation,
-        protected bool $legendary,
-        protected ?DateTime $createdAt,
-        protected ?DateTime $updatedAt
-    ) {
-    }
-
-    /** @return int */
-    public function getNumber(): int
+    /** @return null|int */
+    public function getNumber(): ?int
     {
         return $this->number;
     }
@@ -39,30 +30,16 @@ class Pokemon
         return $this->name;
     }
 
-    /** @return Type|null */
-    public function getType1(): ?Type
+    /** @return string */
+    public function getType1(): string
     {
         return $this->type1;
     }
 
-    /** @return string|null */
-    public function getType1Name(): string
-    {
-        return $this->type1->getName();
-    }
-
-    /** @return Type|null */
-    public function getType2(): ?Type
+    /** @return string */
+    public function getType2(): string
     {
         return $this->type2;
-    }
-
-    /** @return string|null */
-    public function getType2Name(): string
-    {
-        return $this->type2
-            ? $this->type2->getName()
-            : '';
     }
 
     /** @return int */
@@ -119,20 +96,6 @@ class Pokemon
         return $this->legendary;
     }
 
-    /** @return string */
-    public function getCreatedAt(): DateTime
-    {
-        return $this->createdAt;
-    }
-
-    /** @return string */
-    public function getUpdatedAt(): DateTime
-    {
-        return $this->updatedAt;
-    }
-
-
-
     /** @return self */
     public function setNumber(int $number): self
     {
@@ -148,14 +111,14 @@ class Pokemon
     }
 
     /** @return self */
-    public function setType1(?Type $type1): self
+    public function setType1(string $type1): self
     {
         $this->type1 = $type1;
         return $this;
     }
 
     /** @return self */
-    public function setType2(?Type $type2): self
+    public function setType2(string $type2): self
     {
         $this->type2 = $type2;
         return $this;
@@ -221,22 +184,6 @@ class Pokemon
     public function setLegendary(bool $legendary): self
     {
         $this->legendary = $legendary;
-        return $this;
-    }
-
-    /** @return self */
-    public function setCreatedAt(DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /** @return self */
-    public function setUpdatedAt(DateTime $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
         return $this;
     }
 }

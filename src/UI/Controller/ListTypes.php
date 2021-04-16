@@ -3,7 +3,6 @@
 namespace App\UI\Controller;
 
 use App\Infra\Repository\TypeRepository;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,6 +17,7 @@ class ListTypes extends AbstractController
     public function __construct(
         protected TypeRepository $repository
     ) {
+        parent::__construct();
     }
 
     /**

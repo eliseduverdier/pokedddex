@@ -4,10 +4,6 @@ namespace App\UI\Controller;
 
 use App\Infra\Repository\PokemonRepository;
 use Assert\Assert;
-use Assert\AssertionFailedException;
-use AssertionError;
-use Exception;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

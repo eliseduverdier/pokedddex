@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infra\Search;
+namespace App\Infra\Filter;
 
 class Pagination
 {

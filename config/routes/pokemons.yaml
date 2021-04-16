@@ -9,7 +9,7 @@ get_pokemon:
     methods:    GET
 
 create_pokemon:
-    path:       /pokemon
+    path:       /pokemons
     controller: App\UI\Controller\CreatePokemon
     methods:    POST
 

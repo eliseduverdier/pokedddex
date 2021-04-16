@@ -1,0 +1,50 @@
+App\Domain\Payload\Pokemon:
+  properties:
+    number:
+      - Type: integer
+      - Positive: ~
+    name:
+      - NotBlank: ~
+      - App\Infra\Validator\Constraints\UniqueName: ~
+      - Length:
+          min: 1
+          max: 126
+    type1:
+      - NotBlank: ~
+      - App\Infra\Validator\Constraints\Type: ~
+    type2:
+      - App\Infra\Validator\Constraints\Type: ~
+    total:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan: 0
+    hp:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan: 0
+    attack:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan: 0
+    defense:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan: 0
+    specialAttack:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan: 0
+    specialDefense:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan: 0
+    speed:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan: 0
+    generation:
+      - NotBlank: ~
+      - Type: integer
+      - GreaterThan: 0
+    legendary:
+      - Type: bool

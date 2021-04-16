@@ -18,9 +18,12 @@ alias sf='php bin/console --env=dev' \
 [x] DB and fixtures
 [x] doctrine mapping and import command
 [x] set controllers and api routes
-[] validates input (POST, PUT)
-[] validates input (GET, DELETE)
-[] GET search
+[x] validates input (POST, PUT, DELETE, GET)
+   [x] POST --> DB     (*valider puis commit*)
+   [ ] PUT --> DB
+   [ ] DELETE --> DB
+[x] GET one
+[ ] GET all
     [x] validates search params
     [x] filter recherche nom ou type
         (?name=)
@@ -29,7 +32,7 @@ alias sf='php bin/console --env=dev' \
     [x] pagination (?page)
     [] ? use Search service
 [] set authentification (Token: Bearer ?)
-
+[] CQRS
 
 
 
