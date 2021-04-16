@@ -59,6 +59,7 @@ class PokemonRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    // TODO move in TypeRepository
     public function getTypesName()
     {
         $names = $this->createQueryBuilder('p')

@@ -11,7 +11,7 @@ class Pokemon
     public function __construct(
         protected string $number,
         protected string $name,
-        protected ?Type $type1,
+        protected Type $type1,
         protected ?Type $type2,
         protected int $total,
         protected int $hp,
@@ -131,112 +131,34 @@ class Pokemon
         return $this->updatedAt;
     }
 
-
-
-    /** @return self */
-    public function setNumber(int $number): self
-    {
+    public function update(
+        string $number,
+        string $name,
+        Type $type1,
+        ?Type $type2,
+        int $total,
+        int $hp,
+        int $attack,
+        int $defense,
+        int $specialAttack,
+        int $specialDefense,
+        int $speed,
+        int $generation,
+        bool $legendary
+    ) {
         $this->number = $number;
-        return $this;
-    }
-
-    /** @return self */
-    public function setName(string $name): self
-    {
         $this->name = $name;
-        return $this;
-    }
-
-    /** @return self */
-    public function setType1(?Type $type1): self
-    {
         $this->type1 = $type1;
-        return $this;
-    }
-
-    /** @return self */
-    public function setType2(?Type $type2): self
-    {
         $this->type2 = $type2;
-        return $this;
-    }
-
-    /** @return self*/
-    public function setTotal(int $total): self
-    {
         $this->total = $total;
-        return $this;
-    }
-
-    /** @return self*/
-    public function setHp(int $hp): self
-    {
         $this->hp = $hp;
-        return $this;
-    }
-
-    /** @return self*/
-    public function setAttack(int $attack): self
-    {
         $this->attack = $attack;
-        return $this;
-    }
-
-    /** @return self*/
-    public function setDefense(int $defense): self
-    {
         $this->defense = $defense;
-        return $this;
-    }
-
-    /** @return self*/
-    public function setSpecialAttack(int $specialAttack): self
-    {
         $this->specialAttack = $specialAttack;
-        return $this;
-    }
-
-    /** @return self*/
-    public function setSpecialDefense(int $specialDefense): self
-    {
         $this->specialDefense = $specialDefense;
-        return $this;
-    }
-
-    /** @return self*/
-    public function setSpeed(int $speed): self
-    {
         $this->speed = $speed;
-        return $this;
-    }
-
-    /** @return self*/
-    public function setGeneration(int $generation): self
-    {
         $this->generation = $generation;
-        return $this;
-    }
-
-    /** @return self */
-    public function setLegendary(bool $legendary): self
-    {
         $this->legendary = $legendary;
-        return $this;
-    }
-
-    /** @return self */
-    public function setCreatedAt(DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /** @return self */
-    public function setUpdatedAt(DateTime $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
+        $this->updatedAt = new DateTime();
     }
 }

@@ -1,4 +1,5 @@
 App\Domain\Entity\Pokemon:
+  read_only: true
   properties:
     id:
       exclude: true

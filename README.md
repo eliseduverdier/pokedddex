@@ -19,8 +19,8 @@ alias sf='php bin/console --env=dev' \
 [x] doctrine mapping and import command
 [x] set controllers and api routes
 [x] validates input (POST, PUT, DELETE, GET)
-   [x] POST --> DB     (*valider puis commit*)
-   [ ] PUT --> DB
+   [x] POST --> DB
+   [x] PUT --> DB
    [ ] DELETE --> DB
 [x] GET one
 [ ] GET all
