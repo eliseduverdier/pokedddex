@@ -2,6 +2,8 @@
 
 namespace App\UI\Controller;
 
+use App\App\Query\GetPokemonQuery;
+use App\Domain\CQRS\QueryBusInterface;
 use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,14 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 class GetPokemon extends AbstractController
 {
     public function __construct(
-        protected PokemonRepository $repository
+        protected QueryBusInterface $queryBus
     ) {
         parent::__construct();
     }
 
     public function __invoke(string $name): JsonResponse
     {
-        $pokemon = $this->repository->findOneBy(['name' => $name]);
+        $pokemon = $this->queryBus->handle(new GetPokemonQuery($name));
 
         if (is_null($pokemon)) {
             return $this->notFoundResponse($name);

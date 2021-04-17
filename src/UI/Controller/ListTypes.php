@@ -2,7 +2,8 @@
 
 namespace App\UI\Controller;
 
-use App\App\Query\ListTypes as ListTypesQuery;
+use App\App\Query\ListTypesQuery;
+use App\Domain\CQRS\QueryBusInterface;
 use App\Infra\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,14 +14,14 @@ use Symfony\Component\HttpFoundation\Response;
 class ListTypes extends AbstractController
 {
     public function __construct(
-        protected ListTypesQuery $listTypeQuery
+        protected QueryBusInterface $queryBus
     ) {
         parent::__construct();
     }
 
     public function __invoke(): JsonResponse
     {
-        $types = $this->listTypeQuery->__invoke();
+        $types = $this->queryBus->handle(new ListTypesQuery());
 
         return new JsonResponse(
             $this->serializer->serialize($types, 'json'),

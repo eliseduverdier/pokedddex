@@ -1,14 +1,16 @@
 <?php
 
-namespace App\App\Query;
+namespace App\App\QueryHandler;
 
+use App\App\Query\GetPokemonQuery;
+use App\Domain\CQRS\QueryHandlerInterface;
 use App\Domain\Entity\Pokemon;
 use App\Infra\Repository\PokemonRepository;
 
 /**
  * Command GetPokemon Query
  */
-class GetPokemon
+final class GetPokemonHandler implements QueryHandlerInterface
 {
     /**
      * @param PokemonRepository $repository
@@ -21,8 +23,8 @@ class GetPokemon
     /**
      * @return Pokemon|null
      */
-    public function __invoke(string $name): ?Pokemon
+    public function __invoke(GetPokemonQuery $query): ?Pokemon
     {
-        return $this->repository->findOneBy(['name' => $name]);
+        return $this->repository->findOneBy(['name' => $query->name()]);
     }
 }

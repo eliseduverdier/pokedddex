@@ -41,7 +41,9 @@ abstract class AbstractController
         } else {
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
             $output = 'Unknown error';
+            // TODO Error should be logged
         }
+
         return new JsonResponse([
             'errors' => $output
         ], $status);

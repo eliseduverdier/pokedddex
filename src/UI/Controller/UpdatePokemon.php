@@ -2,9 +2,11 @@
 
 namespace App\UI\Controller;
 
-use App\App\Command\UpdatePokemon as UpdatePokemonCommand;
+use App\App\Command\UpdatePokemonCommand;
+use App\App\Query\GetPokemonQuery;
+use App\Domain\CQRS\QueryBusInterface;
+use App\Domain\CQRS\CommandBusInterface;
 use App\Domain\Entity\Pokemon as PokemonEntity;
-use App\Domain\Payload\Pokemon as PokemonPayload;
 use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,22 +22,26 @@ class UpdatePokemon extends AbstractController
     public function __construct(
         protected PokemonRepository $repository,
         protected ValidatorInterface $validator,
-        protected UpdatePokemonCommand $command
+        protected CommandBusInterface $commandBus,
+        protected QueryBusInterface $queryBus
     ) {
         parent::__construct();
     }
 
     public function __invoke(string $name, Request $request): JsonResponse
     {
-        $pokemon = $this->repository->findOneBy(['name' => $name]);
+        $pokemon = $this->queryBus->handle(new GetPokemonQuery($name));
         if (is_null($pokemon)) {
             return $this->notFoundResponse($name);
         }
 
         $json = $request->getContent();
-        $payload = $this->serializer->deserialize($json, 'App\Domain\Payload\Pokemon', 'json');
-        $violations = $this->validator->validate($payload);
-        if (count($violations) > 0 && !$this->isSelfRenamed($violations, $pokemon, $payload)) {
+        /** @var UpdatePokemonCommand $pokemonCommand */
+        $pokemonCommand = $this->serializer->deserialize($json, 'App\App\Command\UpdatePokemonCommand', 'json');
+        $pokemonCommand->originalPokemon = $pokemon; // attach retreive entity to update it when dispatched
+        $violations = $this->validator->validate($pokemonCommand);
+
+        if (count($violations) > 0 && !$this->isSelfRenamed($violations, $pokemon, $pokemonCommand)) {
             $errors = [];
             foreach ($violations as $violation) {
                 $errors[$violation->getPropertyPath()] = $violation->getMessage();
@@ -43,7 +49,7 @@ class UpdatePokemon extends AbstractController
             return new JsonResponse($errors, Response::HTTP_BAD_REQUEST);
         }
 
-        $name = $this->command->__invoke($pokemon, $payload);
+        $this->commandBus->dispatch($pokemonCommand);
 
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
@@ -54,10 +60,10 @@ class UpdatePokemon extends AbstractController
     protected function isSelfRenamed(
         ConstraintViolationListInterface $violations,
         PokemonEntity $pokemon,
-        PokemonPayload $payload
+        UpdatePokemonCommand $pokemonCommand
     ): bool {
         return count($violations) === 1
             && $violations[0]->getPropertyPath() === 'name'
-            && strtolower($pokemon->getName()) === strtolower($payload->getName());
+            && strtolower($pokemon->getName()) === strtolower($pokemonCommand->name());
     }
 }

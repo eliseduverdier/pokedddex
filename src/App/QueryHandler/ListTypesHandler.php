@@ -1,10 +1,12 @@
 <?php
 
-namespace App\App\Query;
+namespace App\App\QueryHandler;
 
+use App\App\Query\ListTypesQuery;
+use App\Domain\CQRS\QueryHandlerInterface;
 use App\Infra\Repository\TypeRepository;
 
-class ListTypes
+final class ListTypesHandler implements QueryHandlerInterface
 {
     /**
      * @param TypeRepository $repository
@@ -17,7 +19,7 @@ class ListTypes
     /**
      * @return array
      */
-    public function __invoke(): array
+    public function __invoke(ListTypesQuery $query): array
     {
         return $this->repository->getTypesName();
     }
