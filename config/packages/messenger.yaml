@@ -1,0 +1,21 @@
+framework:
+    messenger:
+        default_bus: command.bus
+
+        buses:
+            command.bus:
+                middleware:
+                    - doctrine_transaction
+            query.bus: ~
+
+        transports:
+            sync: 'sync://'
+            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+
+        routing:
+            'App\App\Command\CreatePokemon': async
+            'App\App\Command\UpdatePokemon': async
+            'App\App\Command\DeletePokemon': async
+            'App\App\Query\GetPokemon': sync
+            'App\App\Query\ListPokemons': sync
+            'App\App\Query\ListTypes': sync
