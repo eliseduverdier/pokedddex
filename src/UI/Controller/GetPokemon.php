@@ -11,18 +11,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class GetPokemon extends AbstractController
 {
-    /**
-     * @param PokemonRepository $repository
-     */
     public function __construct(
         protected PokemonRepository $repository
     ) {
         parent::__construct();
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function __invoke(string $name): JsonResponse
     {
         $pokemon = $this->repository->findOneBy(['name' => $name]);

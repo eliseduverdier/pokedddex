@@ -14,9 +14,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class CreatePokemon extends AbstractController
 {
-    /**
-     * @param PokemonRepository $repository
-     */
     public function __construct(
         protected PokemonRepository $repository,
         protected ValidatorInterface $validator,
@@ -25,9 +22,6 @@ class CreatePokemon extends AbstractController
         parent::__construct();
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function __invoke(Request $request): JsonResponse
     {
         $json = $request->getContent();

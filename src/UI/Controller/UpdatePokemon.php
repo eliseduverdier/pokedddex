@@ -17,9 +17,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class UpdatePokemon extends AbstractController
 {
-    /**
-     * @param PokemonRepository $repository
-     */
     public function __construct(
         protected PokemonRepository $repository,
         protected ValidatorInterface $validator,
@@ -28,9 +25,6 @@ class UpdatePokemon extends AbstractController
         parent::__construct();
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function __invoke(string $name, Request $request): JsonResponse
     {
         $pokemon = $this->repository->findOneBy(['name' => $name]);
@@ -42,7 +36,6 @@ class UpdatePokemon extends AbstractController
         $payload = $this->serializer->deserialize($json, 'App\Domain\Payload\Pokemon', 'json');
         $violations = $this->validator->validate($payload);
         if (count($violations) > 0 && !$this->isSelfRenamed($violations, $pokemon, $payload)) {
-            // if the only violation is the name already existing, and it corresponds to the old one -> ignore
             $errors = [];
             foreach ($violations as $violation) {
                 $errors[$violation->getPropertyPath()] = $violation->getMessage();
@@ -56,13 +49,13 @@ class UpdatePokemon extends AbstractController
     }
 
     /**
-     * @param ConstraintViolationListInterface $violations
-     * @param PokemonEntity $pokemon
-     * @param PokemonPayload $payload
-     * @return bool
+     * If the only violation is the name already existing, and it corresponds to the old one -> ignore it
      */
-    protected function isSelfRenamed(ConstraintViolationListInterface $violations, PokemonEntity $pokemon, PokemonPayload $payload)
-    {
+    protected function isSelfRenamed(
+        ConstraintViolationListInterface $violations,
+        PokemonEntity $pokemon,
+        PokemonPayload $payload
+    ): bool {
         return count($violations) === 1
             && $violations[0]->getPropertyPath() === 'name'
             && strtolower($pokemon->getName()) === strtolower($payload->getName());

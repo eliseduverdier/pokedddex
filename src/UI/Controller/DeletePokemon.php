@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class DeletePokemon extends AbstractController
 {
-    /**
-     * @param PokemonRepository $repository
-     */
     public function __construct(
         protected PokemonRepository $repository,
         protected DeletePokemonCommand $command
@@ -22,9 +19,6 @@ class DeletePokemon extends AbstractController
         parent::__construct();
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function __invoke(string $name): JsonResponse
     {
         $pokemon = $this->repository->findOneBy(['name' => $name]);

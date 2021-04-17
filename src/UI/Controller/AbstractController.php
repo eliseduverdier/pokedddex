@@ -17,7 +17,11 @@ abstract class AbstractController
             ->build();
     }
 
-    public function errorResponse($errors)
+    /**
+     * Display details about errors in query or request data
+     * @param array|LazyAssertionException|ConstraintViolationListInterface $errors
+     */
+    public function errorResponse($errors): JsonResponse
     {
         $output = [];
 
@@ -43,7 +47,7 @@ abstract class AbstractController
         ], $status);
     }
 
-    public function notFoundResponse($input)
+    public function notFoundResponse(string $input): JsonResponse
     {
         return new JsonResponse([
             'errors' => "Did not found entity $input",

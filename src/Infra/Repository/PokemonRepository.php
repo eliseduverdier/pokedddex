@@ -3,9 +3,6 @@
 namespace App\Infra\Repository;
 
 use App\Domain\Entity\Pokemon;
-use App\Infra\Filter\Pagination;
-use App\Infra\Filter\Sort;
-use App\Infra\Search\Filter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

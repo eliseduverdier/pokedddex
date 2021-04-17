@@ -15,10 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ListPokemons extends AbstractController
 {
-    /**
-     * @param PokemonRepository $pokemonRepository
-     * @param TypeRepository $typeRepository
-     */
     public function __construct(
         protected PokemonRepository $pokemonRepository,
         protected TypeRepository $typeRepository,
@@ -27,9 +23,6 @@ class ListPokemons extends AbstractController
         parent::__construct();
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function __invoke(Request $request): JsonResponse
     {
         try {

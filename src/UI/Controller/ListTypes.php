@@ -12,18 +12,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ListTypes extends AbstractController
 {
-    /**
-     * @param TypeRepository $repository
-     */
     public function __construct(
         protected ListTypesQuery $listTypeQuery
     ) {
         parent::__construct();
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function __invoke(): JsonResponse
     {
         $types = $this->listTypeQuery->__invoke();
