@@ -1,4 +1,4 @@
-App\Domain\Payload\Pokemon:
+App\App\Command\CreatePokemonCommand:
   properties:
     number:
       - Type: integer

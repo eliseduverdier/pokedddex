@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Domain\CQRS;
+namespace App\Infra\MessengerBus;
 
+use App\Domain\CQRS\CommandBusInterface;
+use App\Domain\CQRS\CommandInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class MessengerCommandBus implements CommandBusInterface
 {
-    private MessageBusInterface $commandBus;
+    protected MessageBusInterface $commandBus;
 
     public function __construct(MessageBusInterface $commandBus)
     {

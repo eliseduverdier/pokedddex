@@ -2,6 +2,6 @@
 
 namespace App\Domain\CQRS;
 
-interface QueryFinderInterface
+interface QueryHandlerInterface
 {
 }

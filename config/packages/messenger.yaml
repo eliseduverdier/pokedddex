@@ -13,9 +13,9 @@ framework:
             async: '%env(MESSENGER_TRANSPORT_DSN)%'
 
         routing:
-            'App\App\Command\CreatePokemon': async
-            'App\App\Command\UpdatePokemon': async
-            'App\App\Command\DeletePokemon': async
-            'App\App\Query\GetPokemon': sync
-            'App\App\Query\ListPokemons': sync
-            'App\App\Query\ListTypes': sync
+            'App\App\CommandHandler\CreatePokemonHandler': async
+            'App\App\CommandHandler\UpdatePokemonHandler': async
+            'App\App\CommandHandler\DeletePokemonHandler': async
+            'App\App\QueryHandler\GetPokemonHandler': sync
+            'App\App\QueryHandler\ListPokemonsHandler': sync
+            'App\App\QueryHandler\ListTypesHandler': sync

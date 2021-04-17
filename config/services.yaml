@@ -8,7 +8,7 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/Domain/'
+            - '../src/Domain/Entity'
             - '../src/Kernel.php'
 
     App\UI\Controller\:
@@ -16,9 +16,9 @@ services:
         tags: ['controller.service_arguments']
 
     _instanceof:
-        App\App\CQRS\CommandHandlerInterface:
+        App\Domain\CQRS\CommandHandlerInterface:
             tags:
                 - { name: messenger.message_handler, bus: command.bus }
-        App\App\CQRS\QueryHandlerInterface:
+        App\Domain\CQRS\QueryHandlerInterface:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }

@@ -1,0 +1,28 @@
+App\App\Command\CreatePokemonCommand:
+  properties:
+    number:
+      type: int
+    name:
+      type: string
+    type1:
+      type: string
+    type2:
+      type: string
+    total:
+      type: int
+    hp:
+      type: int
+    attack:
+      type: int
+    defense:
+      type: int
+    specialAttack:
+      type: int
+    specialDefense:
+      type: int
+    speed:
+      type: int
+    generation:
+      type: int
+    legendary:
+      type: bool

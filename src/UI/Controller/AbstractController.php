@@ -17,7 +17,11 @@ abstract class AbstractController
             ->build();
     }
 
-    public function errorResponse($errors)
+    /**
+     * Display details about errors in query or request data 
+     * @param array|LazyAssertionException|ConstraintViolationListInterface
+     */
+    public function errorResponse($errors): JsonResponse
     {
         $output = [];
 
@@ -37,13 +41,15 @@ abstract class AbstractController
         } else {
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
             $output = 'Unknown error';
+            // TODO Error should be logged
         }
+
         return new JsonResponse([
             'errors' => $output
         ], $status);
     }
 
-    public function notFoundResponse($input)
+    public function notFoundResponse(string $input): JsonResponse
     {
         return new JsonResponse([
             'errors' => "Did not found entity $input",

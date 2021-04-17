@@ -2,7 +2,10 @@
 
 namespace App\UI\Controller;
 
-use App\App\Query\ListPokemons as ListPokemonsQuery;
+use App\App\Query\ListPokemons as QueryListPokemons;
+use App\App\Query\ListPokemonsQuery;
+use App\App\QueryHandler\ListPokemonsHandler;
+use App\Domain\CQRS\QueryBusInterface;
 use App\Infra\Repository\PokemonRepository;
 use App\Infra\Repository\TypeRepository;
 use Assert\Assert;
@@ -15,21 +18,14 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ListPokemons extends AbstractController
 {
-    /**
-     * @param PokemonRepository $pokemonRepository
-     * @param TypeRepository $typeRepository
-     */
     public function __construct(
         protected PokemonRepository $pokemonRepository,
         protected TypeRepository $typeRepository,
-        protected ListPokemonsQuery $listPokemonQuery
+        protected QueryBusInterface $queryBus
     ) {
         parent::__construct();
     }
 
-    /**
-     * @return JsonResponse
-     */
     public function __invoke(Request $request): JsonResponse
     {
         try {
@@ -55,12 +51,12 @@ class ListPokemons extends AbstractController
             return $this->errorResponse($e);
         }
 
-        $pokemons = $this->listPokemonQuery->__invoke(
+        $pokemons = $this->queryBus->handle(new ListPokemonsQuery(
             $request->query->get('name'),
             $request->query->get('type'),
             $sortParams,
             $request->query->get('page', 0)
-        );
+        ));
 
         return new JsonResponse(
             $this->serializer->serialize($pokemons, 'json'),
