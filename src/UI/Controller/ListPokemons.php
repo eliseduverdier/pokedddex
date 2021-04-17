@@ -34,7 +34,7 @@ class ListPokemons extends AbstractController
             Assert::lazy()
                 ->that($request->query->get('type'))->nullOr()->string()->inArray($acceptedTypes)
                 ->that($request->query->get('name'))->nullOr()->string()
-                ->that($request->query->get('page'))->nullOr()->integer()->greaterThan(0)
+                ->that($request->query->get('page'))->nullOr()->integerish()->greaterThan(0)
                 ->verifyNow();
 
             $sortParams = $request->query->get('sort', []);

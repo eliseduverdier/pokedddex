@@ -9,10 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\Finder;
-use Symfony\Flex\Cache;
 
-class LoadFixtures extends Command
+class LoadPokemonFixtures extends Command
 {
     const CSV_PATH = __DIR__ . '/../../../resources/fixtures/pokemons.csv';
     const CSV_SEPARATOR = ',';
@@ -28,7 +26,7 @@ class LoadFixtures extends Command
     protected function configure()
     {
         $this
-            ->setName('pokedex:load-fixtures')
+            ->setName('pokedex:load:pokemon')
             ->setDescription('Load the fixtures from the CSV to the DB.');
     }
 
@@ -43,7 +41,7 @@ class LoadFixtures extends Command
             $rows = $this->parseCSV();
             $this->loadInDb($rows);
 
-            $output->writeln('Successfully loaded fixtures !');
+            $output->writeln(sprintf('Successfully loaded %d pokemons fixtures !', count($rows)));
 
             return Command::SUCCESS;
         } catch (\Exception $e) {
