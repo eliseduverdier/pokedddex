@@ -12,4 +12,14 @@ class TypeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Type::class);
     }
+
+    public function getTypesName(): array
+    {
+        $names = $this->createQueryBuilder('t')
+            ->select('t.name')
+            ->getQuery()
+            ->getResult();
+
+        return array_column($names, 'name');
+    }
 }

@@ -4,7 +4,6 @@ namespace App\UI\Command;
 
 use App\Domain\Entity\Pokemon;
 use App\Domain\Entity\Type;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -78,9 +77,7 @@ class LoadPokemonFixtures extends Command
         $typeEntities = []; // Where we will store Type Objects for Pokemons later
         foreach ($types as $typeName) {
             $typeEntity = (new Type(
-                $typeName,
-                new DateTime(),
-                new DateTime()
+                $typeName
             ));
             $typeEntities[$typeName] = $typeEntity;
 
@@ -104,8 +101,6 @@ class LoadPokemonFixtures extends Command
                 $line['Speed'],
                 $line['Generation'],
                 $line['Legendary'] === 'True', // map to boolean
-                new DateTime(),
-                new DateTime()
             ));
             $this->em->persist($pokemon);
         }

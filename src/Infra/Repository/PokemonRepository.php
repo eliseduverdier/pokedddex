@@ -3,10 +3,10 @@
 namespace App\Infra\Repository;
 
 use App\Domain\Entity\Pokemon;
-use DateTime;
+use App\Infra\Filter\Pagination;
+use App\Infra\Filter\Sort;
+use App\Infra\Search\Filter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\Criteria;
-use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
 class PokemonRepository extends ServiceEntityRepository
@@ -21,8 +21,8 @@ class PokemonRepository extends ServiceEntityRepository
     public function filterBy(
         array $searchParams = [],
         array $sortParams = [],
-        int $page = 0
-    ) {
+        int $page = 1
+    ): array {
         $qb = $this->createQueryBuilder('p')->select('p');
 
         // TODO use Infra\Filter\FilterFilter
@@ -59,19 +59,7 @@ class PokemonRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    // TODO move in TypeRepository
-    public function getTypesName()
-    {
-        $names = $this->createQueryBuilder('p')
-            ->select('distinct(t.name)')
-            ->leftJoin('p.type1', 't')
-            ->getQuery()
-            ->getResult();
-
-        return array_column($names, 1);
-    }
-
-    public function getPokemonNames()
+    public function getPokemonNames(): array
     {
         $names = $this->createQueryBuilder('p')
             ->select('p.name')
@@ -81,12 +69,12 @@ class PokemonRepository extends ServiceEntityRepository
         return array_column($names, 'name');
     }
 
-    public function getAttributesName()
+    public function getAttributesName(): array
     {
         return $this->getClassMetadata('Pokemons')->getColumnNames();
     }
 
-    public function getNewNumber()
+    public function getNewNumber(): int
     {
         $maxNumber = $this->createQueryBuilder('p')
             ->select('max(p.number)')

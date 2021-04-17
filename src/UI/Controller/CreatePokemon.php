@@ -34,11 +34,7 @@ class CreatePokemon extends AbstractController
         $payload = $this->serializer->deserialize($json, 'App\Domain\Payload\Pokemon', 'json');
         $violations = $this->validator->validate($payload);
         if (count($violations) > 0) {
-            $errors = [];
-            foreach ($violations as $violation) {
-                $errors[$violation->getPropertyPath()] = $violation->getMessage();
-            }
-            return new JsonResponse($errors, Response::HTTP_BAD_REQUEST);
+            return $this->errorResponse($violations);
         }
 
         $name = $this->command->__invoke($payload);

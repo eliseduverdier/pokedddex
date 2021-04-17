@@ -2,24 +2,27 @@
 
 namespace App\Domain\Entity;
 
-use DateTime;
-
+/**
+ * Class Type
+ */
 class Type
 {
     use IdTrait;
 
+    /** @var string */
     protected $name;
+
+    /** @var \DateTime */
     protected $createdAt;
+
+    /** @var \DateTime */
     protected $updatedAt;
 
-    public function __construct(
-        string $name,
-        ?DateTime $createdAt,
-        ?DateTime $updatedAt,
-    ) {
+    public function __construct(string $name)
+    {
         $this->name = $name;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -31,13 +34,13 @@ class Type
     }
 
     /** @return string */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
     /** @return string */
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
     }
@@ -53,7 +56,7 @@ class Type
     }
 
     /** @return self */
-    public function setCreatedAt(DateTime $createdAt): self
+    public function setCreatedAt(\DateTime $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -61,7 +64,7 @@ class Type
     }
 
     /** @return self */
-    public function setUpdatedAt(DateTime $updatedAt): self
+    public function setUpdatedAt(\DateTime $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 

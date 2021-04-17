@@ -3,7 +3,7 @@ jms_serializer:
         xml_serialization:
             format_output: '%kernel.debug%'
     metadata:
-        auto_detection: false
+        auto_detection: true
         directories:
             Pokemons:
                 namespace_prefix: 'App\Domain\Entity'

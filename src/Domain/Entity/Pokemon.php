@@ -2,11 +2,18 @@
 
 namespace App\Domain\Entity;
 
-use DateTime;
-
+/**
+ * Class Pokemon
+ */
 class Pokemon
 {
     use IdTrait;
+
+    /** @var \DateTime */
+    protected $createdAt;
+
+    /** @var \DateTime */
+    protected $updatedAt;
 
     public function __construct(
         protected string $number,
@@ -21,10 +28,41 @@ class Pokemon
         protected int $specialDefense,
         protected int $speed,
         protected int $generation,
-        protected bool $legendary,
-        protected ?DateTime $createdAt,
-        protected ?DateTime $updatedAt
+        protected bool $legendary
     ) {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function update(
+        string $number,
+        string $name,
+        Type $type1,
+        ?Type $type2,
+        int $total,
+        int $hp,
+        int $attack,
+        int $defense,
+        int $specialAttack,
+        int $specialDefense,
+        int $speed,
+        int $generation,
+        bool $legendary
+    ) {
+        $this->number = $number;
+        $this->name = $name;
+        $this->type1 = $type1;
+        $this->type2 = $type2;
+        $this->total = $total;
+        $this->hp = $hp;
+        $this->attack = $attack;
+        $this->defense = $defense;
+        $this->specialAttack = $specialAttack;
+        $this->specialDefense = $specialDefense;
+        $this->speed = $speed;
+        $this->generation = $generation;
+        $this->legendary = $legendary;
+        $this->updatedAt = new \DateTime();
     }
 
     /** @return int */
@@ -120,45 +158,14 @@ class Pokemon
     }
 
     /** @return string */
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
     /** @return string */
-    public function getUpdatedAt(): DateTime
+    public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
-    }
-
-    public function update(
-        string $number,
-        string $name,
-        Type $type1,
-        ?Type $type2,
-        int $total,
-        int $hp,
-        int $attack,
-        int $defense,
-        int $specialAttack,
-        int $specialDefense,
-        int $speed,
-        int $generation,
-        bool $legendary
-    ) {
-        $this->number = $number;
-        $this->name = $name;
-        $this->type1 = $type1;
-        $this->type2 = $type2;
-        $this->total = $total;
-        $this->hp = $hp;
-        $this->attack = $attack;
-        $this->defense = $defense;
-        $this->specialAttack = $specialAttack;
-        $this->specialDefense = $specialDefense;
-        $this->speed = $speed;
-        $this->generation = $generation;
-        $this->legendary = $legendary;
-        $this->updatedAt = new DateTime();
     }
 }

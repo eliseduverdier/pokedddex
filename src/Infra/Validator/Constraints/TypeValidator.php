@@ -2,7 +2,7 @@
 
 namespace App\Infra\Validator\Constraints;
 
-use App\Infra\Repository\PokemonRepository;
+use App\Infra\Repository\TypeRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class TypeValidator extends ConstraintValidator
 {
     public function __construct(
-        protected PokemonRepository $repository
+        protected TypeRepository $repository
     ) {
     }
 

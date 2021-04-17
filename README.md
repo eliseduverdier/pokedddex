@@ -1,16 +1,66 @@
 # pokedex-artsper
 
-## Install
-```
+A simple Pokedex API, using
+* PHP 8.0.3
+* Doctrine + MySql
+* DDD and CQRS pattern
+* JWT Authentication
+
+## How to use
+### Install
+```shell
 alias sf='php bin/console --env=dev' \
 && composer install \
 && sf doctrine:database:create \
 && sf doctrine:schema:update --force \
 && sf pokedex:load:pokemons \
 && sf pokedex:load:users
+&& sf lexik:jwt:generate-keypair
+&& symfony server:start
 ```
-* Recreate DB `sf c:c && sf doc:da:drop --force && sf doc:da:create && sf doc:sc:up --force && sf pok:l:p && sf pok:l:u`
 
+To force release, use:
+```shell
+sf c:c && sf doc:da:drop --force && sf doc:da:create && sf doc:sc:up --force && sf pok:l:p && sf pok:l:u
+```
+
+Ang go to `http://127.0.0.1:8000`.
+
+### Check quality
+* Check code style : `vendor/bin/phpcs src/`
+* Launch tests : _(Would have use behat, but did not had enough time, sorry)_
+
+### Use
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12e1b427a49cce57fc1f)
+First, call the `login` route, then put the token in the `Auth` tab to freely use the protected routes.
+
+Or see routes below:
+#### Login
+POST /login_check -d '{"username": "user3@artsper.com", "password": "1234567890"}'
+
+#### List all pokemons
+`GET /pokemons
+    ? name=abc
+    & type=Fire
+    & sort[generation]=desc & sort[name]=asc 
+    & page=1`
+
+#### List all types
+`GET /types`
+
+#### Get a pokemon
+`GET /pokemon/{name}`
+
+#### Create a new pokemon
+`POST /pokemons -d '{"name": "Coucou", "type1": "Fire", "type2": "Ice", "total": 1, "hp": 1, "attack": 1, "defense": 1, "special_attack": 1, "special_defense": 1, "speed": 1, "generation": 1, "legendary": false}'`
+
+#### Update a pokemon
+`PUT /pokemon/{name} -d '{"name": "Coucou", "type1": "Fire", "type2": "Ice", "total": 1, "hp": 1, "attack": 1, "defense": 1, "special_attack": 1, "special_defense": 1, "speed": 1, "generation": 1, "legendary": false}'`
+
+#### Delete a pokemon
+`DELETE /pokemon/{name}`
+```
 
 ## TODO
 [x] install sf and librairies
@@ -34,26 +84,5 @@ alias sf='php bin/console --env=dev' \
     [ ] ? use Search service
 [x] creates users (email/password)
 [x] set authentification (Token: Bearer)
+[x] phpcs, quality, etc
 [ ] CQRS
-
-## Available routes
-See https://www.getpostman.com/collections/12e1b427a49cce57fc1f
-
-```
-POST /login_check -d { "username": "user3@artsper.com", "password": "1234567890" }
-```
-Send authentication data: `{ "username": "user1@artsper.com", "password": "1234567890" }` (user1, user2, or user3)
-
-
-```
-GET /pokemons
-    ?name=abc
-    ?type=fire
-    ?sort[name]=asc & sort[blob]=ytuj
-    ?page=1
-
-GET /pokemon/{name}
-POST /pokemons
-PUT /pokemon/{name}
-DELETE /pokemon/{name}
-```

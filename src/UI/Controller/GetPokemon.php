@@ -26,6 +26,7 @@ class GetPokemon extends AbstractController
     public function __invoke(string $name): JsonResponse
     {
         $pokemon = $this->repository->findOneBy(['name' => $name]);
+
         if (is_null($pokemon)) {
             return $this->notFoundResponse($name);
         }

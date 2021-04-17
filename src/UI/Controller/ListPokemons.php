@@ -2,7 +2,9 @@
 
 namespace App\UI\Controller;
 
+use App\App\Query\ListPokemons as ListPokemonsQuery;
 use App\Infra\Repository\PokemonRepository;
+use App\Infra\Repository\TypeRepository;
 use Assert\Assert;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +16,13 @@ use Symfony\Component\HttpFoundation\Response;
 class ListPokemons extends AbstractController
 {
     /**
-     * @param PokemonRepository $repository
+     * @param PokemonRepository $pokemonRepository
+     * @param TypeRepository $typeRepository
      */
     public function __construct(
-        protected PokemonRepository $repository
+        protected PokemonRepository $pokemonRepository,
+        protected TypeRepository $typeRepository,
+        protected ListPokemonsQuery $listPokemonQuery
     ) {
         parent::__construct();
     }
@@ -28,13 +33,15 @@ class ListPokemons extends AbstractController
     public function __invoke(Request $request): JsonResponse
     {
         try {
-            $acceptedTypes = $this->repository->getTypesName();
-            $acceptedAttributes = $this->repository->getAttributesName();
+            $acceptedTypes = $this->typeRepository->getTypesName();
+            $acceptedAttributes = $this->pokemonRepository->getAttributesName();
 
             Assert::lazy()
-                ->that($request->query->get('type'))->nullOr()->string()->inArray($acceptedTypes)
-                ->that($request->query->get('name'))->nullOr()->string()
-                ->that($request->query->get('page'))->nullOr()->integerish()->greaterThan(0)
+                ->that($request->query->get('type'), 'type')->nullOr()->string()->inArray($acceptedTypes)
+                ->that($request->query->get('name'), 'name')->nullOr()->string()
+                ->that($request->query->get('page'), 'page')->nullOr()->integerish()->greaterThan(0)
+                ->that($request->query->get('sort'), 'sort', 'Should be an array (sort[attribute]=asc|desc)')
+                ->nullOr()->isArray()
                 ->verifyNow();
 
             $sortParams = $request->query->get('sort', []);
@@ -48,20 +55,10 @@ class ListPokemons extends AbstractController
             return $this->errorResponse($e);
         }
 
-        $searchParams = [];
-
-        // TODO refacto with Infra\Search class
-        if (!is_null($request->query->get('name'))) {
-            $searchParams['name'] = $request->query->get('name');
-        }
-        if (!is_null($request->query->get('type'))) {
-            $searchParams['type'] = $request->query->get('type');
-            // if (!array_key_exists($typeFilter, [...all types])) { throw }
-        }
-
-        $pokemons = $this->repository->filterBy(
-            $searchParams,
-            $request->query->get('sort', []),
+        $pokemons = $this->listPokemonQuery->__invoke(
+            $request->query->get('name'),
+            $request->query->get('type'),
+            $sortParams,
             $request->query->get('page', 0)
         );
 

@@ -3,8 +3,8 @@ App\Domain\Entity\Type:
     id:
       exclude: true
     createdAt:
-      exclude: true
+      type: DateTime
     updatedAt:
-      exclude: true
+      type: DateTime
     name:
       type: string

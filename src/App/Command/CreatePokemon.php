@@ -6,7 +6,6 @@ use App\Domain\Entity\Pokemon;
 use App\Domain\Payload\Pokemon as PayloadPokemon;
 use App\Infra\Repository\TypeRepository;
 use App\Infra\Repository\PokemonRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CreatePokemon
@@ -33,9 +32,7 @@ class CreatePokemon
             $payload->getSpecialDefense(),
             $payload->getSpeed(),
             $payload->getGeneration(),
-            $payload->getLegendary(),
-            new DateTime(),
-            new DateTime()
+            $payload->getLegendary()
         );
         $this->em->persist($pokemon);
         $this->em->flush();

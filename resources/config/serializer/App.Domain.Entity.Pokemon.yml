@@ -4,9 +4,9 @@ App\Domain\Entity\Pokemon:
     id:
       exclude: true
     createdAt:
-      exclude: true
+      type: DateTime
     updatedAt:
-      exclude: true
+      type: DateTime
     type1:
       type: string
       access_type: public_method

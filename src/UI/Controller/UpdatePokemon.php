@@ -3,10 +3,13 @@
 namespace App\UI\Controller;
 
 use App\App\Command\UpdatePokemon as UpdatePokemonCommand;
+use App\Domain\Entity\Pokemon as PokemonEntity;
+use App\Domain\Payload\Pokemon as PokemonPayload;
 use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -52,7 +55,13 @@ class UpdatePokemon extends AbstractController
         return new JsonResponse(null, Response::HTTP_NO_CONTENT);
     }
 
-    protected function isSelfRenamed($violations, $pokemon, $payload)
+    /**
+     * @param ConstraintViolationListInterface $violations
+     * @param PokemonEntity $pokemon
+     * @param PokemonPayload $payload
+     * @return bool
+     */
+    protected function isSelfRenamed(ConstraintViolationListInterface $violations, PokemonEntity $pokemon, PokemonPayload $payload)
     {
         return count($violations) === 1
             && $violations[0]->getPropertyPath() === 'name'

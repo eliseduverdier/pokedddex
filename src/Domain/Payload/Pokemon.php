@@ -2,6 +2,10 @@
 
 namespace App\Domain\Payload;
 
+/**
+ * Class Payload\Pokemon
+ * Used to validate input when creating or updating a Entity\Pokemon
+ */
 class Pokemon
 {
     protected $number;
