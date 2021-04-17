@@ -8,23 +8,28 @@ A simple Pokedex API, using
 
 ## How to use
 ### Install
+* `git clone git@github.com:EliseDuverdier/pokedex.git && cd pokedex`
+* `cp .env{,local}`
+* In .env.local, customize your `DATABASE_URL` on line 22
+* Enter the following commands :
 ```shell
 alias sf='php bin/console --env=dev' \
-&& composer install \
-&& sf doctrine:database:create \
-&& sf doctrine:schema:update --force \
-&& sf pokedex:load:pokemons \
-&& sf pokedex:load:users
-&& sf lexik:jwt:generate-keypair
-&& symfony server:start
+    && composer install \
+    && sf doctrine:database:create \
+    && sf doctrine:schema:update --force \
+    && sf pokedex:load:pokemons \
+    && sf pokedex:load:users
+    && sf lexik:jwt:generate-keypair
+    && symfony server:start
 ```
+ * And go to `http://127.0.0.1:8000`.
 
-To force release, use:
+<!-- * To force reload, use:
 ```shell
 sf c:c && sf doc:da:drop --force && sf doc:da:create && sf doc:sc:up --force && sf pok:l:p && sf pok:l:u
 ```
+-->
 
-And go to `http://127.0.0.1:8000`.
 
 <!--
 ### Check quality
@@ -34,9 +39,9 @@ And go to `http://127.0.0.1:8000`.
 
 ### Use
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12e1b427a49cce57fc1f)
-
 First, call the `login` route, then put the token in the `Auth` tab to freely use the protected routes.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12e1b427a49cce57fc1f)
 
 Or see routes below:
 |                      | cURL command |
