@@ -1,6 +1,6 @@
 {
     "type": "project",
-    "name": "artsper/pokedex",
+    "name": "eliseduverdier/pokedex",
     "description": "A pokedex to manage your pokemons",
     "license": "proprietary",
     "minimum-stability": "dev",

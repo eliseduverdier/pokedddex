@@ -1,4 +1,4 @@
-# pokedex-artsper
+# pokedex
 
 A simple Pokedex API, using
 * PHP 8.0.3
@@ -45,7 +45,7 @@ First, call the `login` route, then put the token in the `Auth` tab to freely us
 Or see routes below:
 |                      | cURL command |
 |----------------------|--------------|
-| Login                | `POST /login_check -d '{"username": "user3@artsper.com", "password": "1234567890"}'` |
+| Login                | `POST /login_check -d '{"username": "user3@example.com", "password": "1234567890"}'` |
 | List all pokemons    | `GET /pokemons ? name=abc & type=Fire & sort[generation]=desc & sort[name]=asc & page=1` |
 | List all types       | `GET /types` |
 | Get a pokemon        | `GET /pokemon/{name}` |

@@ -13,9 +13,9 @@ class LoadUserFixtures extends Command
 {
     /** @var array */
     protected $exampleUsers = [
-        'user1@artsper.com' => '1234567890',
-        'user2@artsper.com' => '1234567890',
-        'user3@artsper.com' => '1234567890',
+        'user1@example.com' => '1234567890',
+        'user2@example.com' => '1234567890',
+        'user3@example.com' => '1234567890',
     ];
 
     /**
