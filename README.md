@@ -40,7 +40,8 @@ sf c:c && sf doc:da:drop --force && sf doc:da:create && sf doc:sc:up --force && 
 
 First, call the `login` route, then put the token in the `Auth` tab to freely use the protected routes.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12e1b427a49cce57fc1f)
+<!--[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12e1b427a49cce57fc1f)-->
+[▶️ Check documentation on postman](https://documenter.getpostman.com/view/15405036/TzJuAHo5)
 
 Or see routes below:
 |                      | cURL command |
