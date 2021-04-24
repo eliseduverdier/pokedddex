@@ -10,13 +10,7 @@ use App\Domain\Entity\Pokemon;
  */
 final class DeletePokemonCommand implements CommandInterface
 {
-    public function __construct(protected Pokemon $originalPokemon)
+    public function __construct(public Pokemon $pokemon)
     {
-    }
-
-    /** @var string */
-    public function originalPokemon()
-    {
-        return $this->originalPokemon;
     }
 }

@@ -9,33 +9,34 @@ class Pokemon
 {
     use IdTrait;
 
+    // TODO in construct, or as traits
     /** @var \DateTime */
-    protected $createdAt;
+    private $createdAt;
 
     /** @var \DateTime */
-    protected $updatedAt;
+    private $updatedAt;
 
     public function __construct(
-        protected string $number,
-        protected string $name,
-        protected Type $type1,
-        protected ?Type $type2,
-        protected int $total,
-        protected int $hp,
-        protected int $attack,
-        protected int $defense,
-        protected int $specialAttack,
-        protected int $specialDefense,
-        protected int $speed,
-        protected int $generation,
-        protected bool $legendary
+        private int $number,
+        private string $name,
+        private Type $type1,
+        private ?Type $type2,
+        private int $total,
+        private int $hp,
+        private int $attack,
+        private int $defense,
+        private int $specialAttack,
+        private int $specialDefense,
+        private int $speed,
+        private int $generation,
+        private bool $legendary
     ) {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
 
     public function update(
-        string $number,
+        int $number,
         string $name,
         Type $type1,
         ?Type $type2,
@@ -48,7 +49,7 @@ class Pokemon
         int $speed,
         int $generation,
         bool $legendary
-    ) {
+    ): void {
         $this->number = $number;
         $this->name = $name;
         $this->type1 = $type1;
@@ -83,7 +84,7 @@ class Pokemon
         return $this->type1;
     }
 
-    /** @return string|null */
+    /** @return string */
     public function getType1Name(): string
     {
         return $this->type1->getName();
@@ -96,7 +97,7 @@ class Pokemon
     }
 
     /** @return string|null */
-    public function getType2Name(): string
+    public function getType2Name(): ?string
     {
         return $this->type2
             ? $this->type2->getName()
@@ -157,13 +158,13 @@ class Pokemon
         return $this->legendary;
     }
 
-    /** @return string */
+    /** @return \DateTime */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /** @return string */
+    /** @return \DateTime */
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;

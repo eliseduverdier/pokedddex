@@ -28,7 +28,7 @@ class CreatePokemon extends AbstractController
         $json = $request->getContent();
 
         /** @var CreatePokemonCommand $pokemonCommand */
-        $pokemonCommand = $this->serializer->deserialize($json, 'App\App\Command\CreatePokemonCommand', 'json');
+        $pokemonCommand = $this->serializer->deserialize($json, CreatePokemonCommand::class, 'json');
 
         $violations = $this->validator->validate($pokemonCommand);
         if (count($violations) > 0) {
@@ -37,6 +37,10 @@ class CreatePokemon extends AbstractController
 
         $this->commandBus->dispatch($pokemonCommand);
 
-        return new JsonResponse(null, Response::HTTP_CREATED, ['Location' => "/pokemon/{$pokemonCommand->name()}"]);
+        return new JsonResponse(
+            null,
+            Response::HTTP_CREATED, // Question whether it should be CREATED, as the commandBus is async
+            ['Location' => "/pokemon/{$pokemonCommand->name}"]
+        );
     }
 }

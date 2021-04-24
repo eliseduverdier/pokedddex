@@ -36,9 +36,11 @@ class UpdatePokemon extends AbstractController
         }
 
         $json = $request->getContent();
+
         /** @var UpdatePokemonCommand $pokemonCommand */
-        $pokemonCommand = $this->serializer->deserialize($json, 'App\App\Command\UpdatePokemonCommand', 'json');
-        $pokemonCommand->originalPokemon = $pokemon; // attach retreive entity to update it when dispatched
+        $pokemonCommand = $this->serializer->deserialize($json, UpdatePokemonCommand::class, 'json');
+        $pokemonCommand->originalPokemon = $pokemon; // Attach the orginak entity to update it from handler
+
         $violations = $this->validator->validate($pokemonCommand);
 
         if (count($violations) > 0 && !$this->isSelfRenamed($violations, $pokemon, $pokemonCommand)) {
@@ -64,6 +66,6 @@ class UpdatePokemon extends AbstractController
     ): bool {
         return count($violations) === 1
             && $violations[0]->getPropertyPath() === 'name'
-            && strtolower($pokemon->getName()) === strtolower($pokemonCommand->name());
+            && strtolower($pokemon->getName()) === strtolower($pokemonCommand->name);
     }
 }

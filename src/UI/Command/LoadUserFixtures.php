@@ -32,7 +32,7 @@ class LoadUserFixtures extends Command
     {
         $this
             ->setName('pokedex:load:users')
-            ->setDescription('Load the fixtures from the CSV to the DB.');
+            ->setDescription('Load some users in the DB.');
     }
 
     /**
@@ -55,14 +55,11 @@ class LoadUserFixtures extends Command
         }
     }
 
-    /**
-     * @param array $rows
-     */
     protected function loadUsers()
     {
         foreach ($this->exampleUsers as $email => $password) {
             $user = new User();
-            $user->setEmail($email);
+            $user->setUsername($email);
             $user->setPassword(
                 $this->passwordEncoder->encodePassword($user, $password)
             );

@@ -13,6 +13,8 @@ framework:
             async: '%env(MESSENGER_TRANSPORT_DSN)%'
 
         routing:
+            # 'App\Domain\QueryHandlerInterface': sync // Not found, use an abstract parent instead
+            # 'App\Domain\CommandHandlerInterface': async
             'App\App\CommandHandler\CreatePokemonHandler': async
             'App\App\CommandHandler\UpdatePokemonHandler': async
             'App\App\CommandHandler\DeletePokemonHandler': async

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class LoadPokemonFixtures extends Command
 {
-    const CSV_PATH = __DIR__ . '/../../../resources/fixtures/pokemons.csv';
+    const CSV_PATH = __DIR__ . '/../../../resources/fixtures/pokemons.csv'; // TODO in config
     const CSV_SEPARATOR = ',';
 
     /**
@@ -25,7 +25,7 @@ class LoadPokemonFixtures extends Command
     protected function configure()
     {
         $this
-            ->setName('pokedex:load:pokemon')
+            ->setName('pokedex:load:pokemons')
             ->setDescription('Load the fixtures from the CSV to the DB.');
     }
 

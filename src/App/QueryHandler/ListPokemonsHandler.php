@@ -22,17 +22,17 @@ final class ListPokemonsHandler implements QueryHandlerInterface
     public function __invoke(ListPokemonsQuery $query): array
     {
         $search = [];
-        if (!is_null($query->name())) {
-            $search['name'] = $query->name();
+        if (!is_null($query->name)) {
+            $search['name'] = $query->name;
         }
-        if (!is_null($query->type())) {
-            $search['type'] = $query->type();
+        if (!is_null($query->type)) {
+            $search['type'] = $query->type;
         }
 
         return $this->repository->filterBy(
             $search,
-            $query->sort(),
-            $query->page()
+            $query->sort,
+            $query->page
         );
     }
 }

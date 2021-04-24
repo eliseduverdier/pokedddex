@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class PokemonRepository extends ServiceEntityRepository
 {
-    const LIMIT = 60;
+    const LIMIT = 60; // TODO in config
 
     public function __construct(protected ManagerRegistry $registry)
     {
@@ -22,7 +22,6 @@ class PokemonRepository extends ServiceEntityRepository
     ): array {
         $qb = $this->createQueryBuilder('p')->select('p');
 
-        // TODO use Infra\Filter\FilterFilter
         foreach ($searchParams as $field => $value) {
             switch ($field) {
                 case 'type':
@@ -43,12 +42,10 @@ class PokemonRepository extends ServiceEntityRepository
             }
         }
 
-        // TODO use Infra\Filter\SortFilter
         foreach ($sortParams as $field => $value) {
             $qb->addOrderBy("p.$field", $value);
         }
 
-        // TODO use Infra\Filter\PaginationFilter
         $offset = $page > 1 ? ($page - 1) * self::LIMIT : 0;
         $qb->setFirstResult($offset);
         $qb->setMaxResults(self::LIMIT);
@@ -68,7 +65,7 @@ class PokemonRepository extends ServiceEntityRepository
 
     public function getAttributesName(): array
     {
-        return $this->getClassMetadata('Pokemons')->getColumnNames();
+        return $this->getClassMetadata()->getColumnNames();
     }
 
     public function getNewNumber(): int

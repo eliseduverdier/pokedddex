@@ -40,7 +40,7 @@ class ListPokemons extends AbstractController
                 ->nullOr()->isArray()
                 ->verifyNow();
 
-            $sortParams = $request->query->get('sort', []);
+            $sortParams = $request->query->get('sort') ?? [];
             foreach ($sortParams as $key => $value) {
                 Assert::lazy()
                     ->that($key)->inArray($acceptedAttributes)
@@ -55,7 +55,7 @@ class ListPokemons extends AbstractController
             $request->query->get('name'),
             $request->query->get('type'),
             $sortParams,
-            $request->query->get('page', 0)
+            (int) $request->query->get('page', '0')
         ));
 
         return new JsonResponse(

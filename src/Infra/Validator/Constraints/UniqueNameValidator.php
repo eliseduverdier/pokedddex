@@ -7,6 +7,9 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * Used to validate the {Create,Update}PokemonCommand
+ */
 class UniqueNameValidator extends ConstraintValidator
 {
     public function __construct(

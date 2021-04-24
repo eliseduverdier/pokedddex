@@ -21,23 +21,21 @@ final class CreatePokemonHandler implements CommandHandlerInterface
     public function __invoke(CreatePokemonCommand $command)
     {
         $pokemon = new Pokemon(
-            $command->number() ?? $this->pokemonRepository->getNewNumber(),
-            $command->name(),
-            $this->typeRepository->findOneBy(['name' => $command->type1()]),
-            $this->typeRepository->findOneBy(['name' => $command->type2()]),
-            $command->total(),
-            $command->hp(),
-            $command->attack(),
-            $command->defense(),
-            $command->specialAttack(),
-            $command->specialDefense(),
-            $command->speed(),
-            $command->generation(),
-            $command->legendary()
+            $command->number ?? $this->pokemonRepository->getNewNumber(),
+            $command->name,
+            $this->typeRepository->findOneBy(['name' => $command->type1]),
+            $this->typeRepository->findOneBy(['name' => $command->type2]),
+            $command->total,
+            $command->hp,
+            $command->attack,
+            $command->defense,
+            $command->specialAttack,
+            $command->specialDefense,
+            $command->speed,
+            $command->generation,
+            $command->legendary
         );
         $this->em->persist($pokemon);
         $this->em->flush();
-
-        return $pokemon->getName();
     }
 }

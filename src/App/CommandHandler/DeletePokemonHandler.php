@@ -15,7 +15,7 @@ final class DeletePokemonHandler implements CommandHandlerInterface
 
     public function __invoke(DeletePokemonCommand $command)
     {
-        $this->em->remove($command->originalPokemon());
+        $this->em->remove($command->pokemon);
         $this->em->flush();
     }
 }

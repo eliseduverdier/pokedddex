@@ -25,6 +25,6 @@ final class GetPokemonHandler implements QueryHandlerInterface
      */
     public function __invoke(GetPokemonQuery $query): ?Pokemon
     {
-        return $this->repository->findOneBy(['name' => $query->name()]);
+        return $this->repository->findOneBy(['name' => $query->name]);
     }
 }

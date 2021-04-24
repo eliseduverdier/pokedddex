@@ -10,13 +10,13 @@ class Type
     use IdTrait;
 
     /** @var string */
-    protected $name;
+    public $name;
 
     /** @var \DateTime */
-    protected $createdAt;
+    public $createdAt;
 
     /** @var \DateTime */
-    protected $updatedAt;
+    public $updatedAt;
 
     public function __construct(string $name)
     {
@@ -33,13 +33,13 @@ class Type
         return $this->name;
     }
 
-    /** @return string */
+    /** @return \DateTime */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /** @return string */
+    /** @return \DateTime */
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
@@ -52,22 +52,6 @@ class Type
     public function setName(string $name)
     {
         $this->name = $name;
-        return $this;
-    }
-
-    /** @return self */
-    public function setCreatedAt(\DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /** @return self */
-    public function setUpdatedAt(\DateTime $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
         return $this;
     }
 }

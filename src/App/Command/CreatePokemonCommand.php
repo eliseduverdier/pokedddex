@@ -2,7 +2,6 @@
 
 namespace App\App\Command;
 
-use App\Domain\CQRS\CommandBusInterface;
 use App\Domain\CQRS\CommandInterface;
 
 /**
@@ -11,19 +10,19 @@ use App\Domain\CQRS\CommandInterface;
  */
 final class CreatePokemonCommand implements CommandInterface
 {
-    protected $number;
-    protected $name;
-    protected $type1;
-    protected $type2;
-    protected $total;
-    protected $hp;
-    protected $attack;
-    protected $defense;
-    protected $specialAttack;
-    protected $specialDefense;
-    protected $speed;
-    protected $generation;
-    protected $legendary;
+    public $number;
+    public $name;
+    public $type1;
+    public $type2;
+    public $total;
+    public $hp;
+    public $attack;
+    public $defense;
+    public $specialAttack;
+    public $specialDefense;
+    public $speed;
+    public $generation;
+    public $legendary;
 
     public function __construct(
         int $number,
@@ -53,83 +52,5 @@ final class CreatePokemonCommand implements CommandInterface
         $this->speed = $speed;
         $this->generation = $generation;
         $this->legendary = $legendary;
-    }
-
-    /** @var int */
-    public function number()
-    {
-        return $this->number;
-    }
-
-    /** @var string */
-    public function name()
-    {
-        return $this->name;
-    }
-
-    /** @var string */
-    public function type1()
-    {
-        return $this->type1;
-    }
-
-    /** @var string */
-    public function type2()
-    {
-        return $this->type2;
-    }
-
-    /** @var int */
-    public function total()
-    {
-        return $this->total;
-    }
-
-    /** @var int */
-    public function hp()
-    {
-        return $this->hp;
-    }
-
-    /** @var int */
-    public function attack()
-    {
-        return $this->attack;
-    }
-
-    /** @var int */
-    public function defense()
-    {
-        return $this->defense;
-    }
-
-    /** @var int */
-    public function specialAttack()
-    {
-        return $this->specialAttack;
-    }
-
-    /** @var int */
-    public function specialDefense()
-    {
-        return $this->specialDefense;
-    }
-
-    /** @var int */
-    public function speed()
-    {
-        return $this->speed;
-    }
-
-    /** @var int */
-    public function generation()
-    {
-        return $this->generation;
-    }
-
-    /** @var bool */
-    public function legendary()
-    {
-        return $this->legendary;
     }
 }

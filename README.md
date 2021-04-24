@@ -18,11 +18,11 @@ alias sf='php bin/console --env=dev' \
     && sf doctrine:database:create \
     && sf doctrine:schema:update --force \
     && sf pokedex:load:pokemons \
-    && sf pokedex:load:users
-    && sf lexik:jwt:generate-keypair
+    && sf pokedex:load:users \
+    && sf lexik:jwt:generate-keypair \
     && symfony server:start
 ```
- * And go to `http://127.0.0.1:8000`.
+ * And go to `http://127.0.0.1:8000/pokemons`.
 
 <!-- * To force reload, use:
 ```shell

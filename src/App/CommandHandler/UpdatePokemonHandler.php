@@ -23,19 +23,19 @@ final class UpdatePokemonHandler implements CommandHandlerInterface
         $originalPokemon = $command->originalPokemon;
 
         $originalPokemon->update(
-            $command->number() ?? $originalPokemon->getNumber(),
-            $command->name(),
-            $this->typeRepository->findOneBy(['name' => $command->type1()]),
-            $this->typeRepository->findOneBy(['name' => $command->type2()]),
-            $command->total(),
-            $command->hp(),
-            $command->attack(),
-            $command->defense(),
-            $command->specialAttack(),
-            $command->specialDefense(),
-            $command->speed(),
-            $command->generation(),
-            $command->legendary(),
+            $command->number ?? $originalPokemon->getNumber(),
+            $command->name,
+            $this->typeRepository->findOneBy(['name' => $command->type1]),
+            $this->typeRepository->findOneBy(['name' => $command->type2]),
+            $command->total,
+            $command->hp,
+            $command->attack,
+            $command->defense,
+            $command->specialAttack,
+            $command->specialDefense,
+            $command->speed,
+            $command->generation,
+            $command->legendary,
         );
         $this->em->persist($originalPokemon);
         $this->em->flush();
