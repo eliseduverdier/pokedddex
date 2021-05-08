@@ -8,9 +8,6 @@ use App\Infra\Repository\TypeRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class ListTypes
- */
 class ListTypes extends AbstractController
 {
     public function __construct(

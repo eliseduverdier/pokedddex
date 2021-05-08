@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class PokemonRepository extends ServiceEntityRepository
 {
-    const LIMIT = 60; // TODO in config
+    const PAGINATION_LIMIT = 60;
 
     public function __construct(protected ManagerRegistry $registry)
     {
@@ -46,9 +46,9 @@ class PokemonRepository extends ServiceEntityRepository
             $qb->addOrderBy("p.$field", $value);
         }
 
-        $offset = $page > 1 ? ($page - 1) * self::LIMIT : 0;
+        $offset = $page > 1 ? ($page - 1) * self::PAGINATION_LIMIT : 0;
         $qb->setFirstResult($offset);
-        $qb->setMaxResults(self::LIMIT);
+        $qb->setMaxResults(self::PAGINATION_LIMIT);
 
         return $qb->getQuery()->getResult();
     }

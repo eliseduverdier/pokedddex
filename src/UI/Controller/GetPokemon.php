@@ -8,9 +8,6 @@ use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class GetPokemon
- */
 class GetPokemon extends AbstractController
 {
     public function __construct(

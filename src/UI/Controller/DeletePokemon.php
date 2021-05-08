@@ -10,9 +10,6 @@ use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * Class DeletePokemon
- */
 class DeletePokemon extends AbstractController
 {
     public function __construct(

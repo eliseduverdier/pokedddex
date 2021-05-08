@@ -8,3 +8,4 @@ jms_serializer:
             Pokemons:
                 namespace_prefix: 'App\Domain\Entity'
                 path: '%kernel.project_dir%/resources/config/serializer'
+

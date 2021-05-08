@@ -18,9 +18,6 @@ class LoadUserFixtures extends Command
         'user3@example.com' => '1234567890',
     ];
 
-    /**
-     * @param EntityManagerInterface $em
-     */
     public function __construct(
         protected EntityManagerInterface $em,
         protected UserPasswordEncoderInterface $passwordEncoder
@@ -28,19 +25,14 @@ class LoadUserFixtures extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('pokedex:load:users')
             ->setDescription('Load some users in the DB.');
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     * @return int
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
             $this->loadUsers();
@@ -55,7 +47,7 @@ class LoadUserFixtures extends Command
         }
     }
 
-    protected function loadUsers()
+    protected function loadUsers(): void
     {
         foreach ($this->exampleUsers as $email => $password) {
             $user = new User();

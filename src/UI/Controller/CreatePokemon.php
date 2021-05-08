@@ -10,9 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * Class CreatePokemon
- */
 class CreatePokemon extends AbstractController
 {
     public function __construct(
@@ -39,7 +36,7 @@ class CreatePokemon extends AbstractController
 
         return new JsonResponse(
             null,
-            Response::HTTP_CREATED, // Question whether it should be CREATED, as the commandBus is async
+            Response::HTTP_ACCEPTED, // Use ACCEPTED instead of CREATED, as the commandBus is async
             ['Location' => "/pokemon/{$pokemonCommand->name}"]
         );
     }

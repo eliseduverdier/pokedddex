@@ -17,7 +17,7 @@ abstract class AbstractController
     public function __construct()
     {
         $this->serializer = SerializerBuilder::create()
-            ->addMetadataDir('../resources/config/serializer/') // TODO in config
+            ->addMetadataDir('../resources/config/serializer/')
             ->build();
     }
 
@@ -25,7 +25,6 @@ abstract class AbstractController
      * Display details about errors in query or request data
      * @param mixed $errors
      */
-    // * @param array|Exception|LazyAssertionException|InvalidArgumentException|ConstraintViolationListInterface $errors
     public function errorResponse($errors): JsonResponse
     {
         $output = [];

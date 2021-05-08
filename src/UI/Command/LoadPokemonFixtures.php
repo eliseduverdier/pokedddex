@@ -14,27 +14,19 @@ class LoadPokemonFixtures extends Command
     const CSV_PATH = __DIR__ . '/../../../resources/fixtures/pokemons.csv'; // TODO in config
     const CSV_SEPARATOR = ',';
 
-    /**
-     * @param EntityManagerInterface $em
-     */
     public function __construct(protected EntityManagerInterface $em)
     {
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('pokedex:load:pokemons')
             ->setDescription('Load the fixtures from the CSV to the DB.');
     }
 
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     * @return int
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
             $rows = $this->parseCSV();
@@ -50,15 +42,12 @@ class LoadPokemonFixtures extends Command
         }
     }
 
-    /**
-     * @return array
-     */
     protected function parseCSV(): array
     {
         $rows = [];
         if (($handle = fopen(self::CSV_PATH, 'r')) !== false) {
-            $headers = fgetcsv($handle, null, self::CSV_SEPARATOR);
-            while (($data = fgetcsv($handle, null, self::CSV_SEPARATOR)) !== false) {
+            $headers = fgetcsv($handle, 0, self::CSV_SEPARATOR);
+            while (($data = fgetcsv($handle, 0, self::CSV_SEPARATOR)) !== false) {
                 $rows[] = array_combine($headers, $data);
             }
             fclose($handle);
@@ -67,10 +56,7 @@ class LoadPokemonFixtures extends Command
         return $rows;
     }
 
-    /**
-     * @param array $rows
-     */
-    protected function loadInDB(array $rows)
+    protected function loadInDB(array $rows): void
     {
         // 1. Load types
         $types = array_unique(array_column($rows, 'Type 1') + array_column($rows, 'Type 2'));

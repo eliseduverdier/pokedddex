@@ -14,9 +14,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-/**
- * Class UpdatePokemon
- */
 class UpdatePokemon extends AbstractController
 {
     public function __construct(
@@ -39,7 +36,7 @@ class UpdatePokemon extends AbstractController
 
         /** @var UpdatePokemonCommand $pokemonCommand */
         $pokemonCommand = $this->serializer->deserialize($json, UpdatePokemonCommand::class, 'json');
-        $pokemonCommand->originalPokemon = $pokemon; // Attach the orginak entity to update it from handler
+        $pokemonCommand->originalPokemon = $pokemon; // Attach the orginal entity to update it from handler
 
         $violations = $this->validator->validate($pokemonCommand);
 
@@ -53,7 +50,10 @@ class UpdatePokemon extends AbstractController
 
         $this->commandBus->dispatch($pokemonCommand);
 
-        return new JsonResponse(null, Response::HTTP_NO_CONTENT);
+        return new JsonResponse(
+            null,
+            Response::HTTP_ACCEPTED // Use ACCEPTED instead of CREATED, as the commandBus is async
+        );
     }
 
     /**

@@ -8,17 +8,11 @@ use App\Infra\Repository\PokemonRepository;
 
 final class ListPokemonsHandler implements QueryHandlerInterface
 {
-    /**
-     * @param PokemonRepository $repository
-     */
     public function __construct(
         protected PokemonRepository $repository
     ) {
     }
 
-    /**
-     * @return array
-     */
     public function __invoke(ListPokemonsQuery $query): array
     {
         $search = [];
