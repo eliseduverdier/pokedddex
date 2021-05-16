@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UI\Command;
+namespace App\Action\Command;
 
 use App\Domain\Entity\Pokemon;
 use App\Domain\Entity\Type;

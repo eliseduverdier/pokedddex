@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UI\Command;
+namespace App\Action\Command;
 
 use App\Domain\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;

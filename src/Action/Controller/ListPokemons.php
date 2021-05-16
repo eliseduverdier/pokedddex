@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UI\Controller;
+namespace App\Action\Controller;
 
 use App\App\Query\ListPokemons as QueryListPokemons;
 use App\App\Query\ListPokemonsQuery;

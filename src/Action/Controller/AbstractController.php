@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UI\Controller;
+namespace App\Action\Controller;
 
 use Assert\LazyAssertionException;
 use Assert\InvalidArgumentException;

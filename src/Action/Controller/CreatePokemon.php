@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UI\Controller;
+namespace App\Action\Controller;
 
 use App\App\Command\CreatePokemonCommand;
 use App\Domain\CQRS\CommandBusInterface;

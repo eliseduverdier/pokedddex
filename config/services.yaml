@@ -11,7 +11,7 @@ services:
             - '../src/Domain/Entity'
             - '../src/Kernel.php'
 
-    App\UI\Controller\:
+    App\Action\Controller\:
         resource: '../src/UI/Controller/'
         tags: ['controller.service_arguments']
 
