@@ -9,15 +9,17 @@ use App\Domain\CQRS\CommandBusInterface;
 use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class DeletePokemon extends AbstractController
 {
     public function __construct(
         protected PokemonRepository $repository,
         protected CommandBusInterface $commandBus,
-        protected QueryBusInterface $queryBus
+        protected QueryBusInterface $queryBus,
+        protected SerializerInterface $serializer
+
     ) {
-        parent::__construct();
     }
 
     public function __invoke(string $name): JsonResponse

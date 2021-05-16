@@ -4,7 +4,7 @@
         "number": { "type": "integer" },
         "name": { "type": "string" },
         "type1": { "type": "string" },
-        "type2": { "type": "string" },
+        "type2": { "type": ["string", "null"] },
         "total": { "type": "integer" },
         "hp": { "type": "integer" },
         "attack": { "type": "integer" },

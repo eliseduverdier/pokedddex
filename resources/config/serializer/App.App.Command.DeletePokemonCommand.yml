@@ -1,4 +1,0 @@
-App\App\Command\DeletePokemonCommand:
-  properties:
-    name:
-      type: string

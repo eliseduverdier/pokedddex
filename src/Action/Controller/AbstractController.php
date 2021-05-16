@@ -3,24 +3,12 @@
 namespace App\Action\Controller;
 
 use Assert\LazyAssertionException;
-use Assert\InvalidArgumentException;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 abstract class AbstractController
 {
-    /** @var \JMS\Serializer\Serializer */
-    protected $serializer;
-
-    public function __construct()
-    {
-        $this->serializer = SerializerBuilder::create()
-            ->addMetadataDir('../resources/config/serializer/') // TODO fix JMS config error in services/, should not load metadata here !!
-            ->build();
-    }
-
     /**
      * Display details about errors in query or request data
      * @param mixed $errors

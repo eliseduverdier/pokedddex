@@ -8,6 +8,7 @@ use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreatePokemon extends AbstractController
@@ -15,9 +16,9 @@ class CreatePokemon extends AbstractController
     public function __construct(
         protected PokemonRepository $repository,
         protected ValidatorInterface $validator,
-        protected CommandBusInterface $commandBus
+        protected CommandBusInterface $commandBus,
+        protected SerializerInterface $serializer,
     ) {
-        parent::__construct();
     }
 
     public function __invoke(Request $request): JsonResponse

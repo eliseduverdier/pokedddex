@@ -7,13 +7,14 @@ use App\Domain\CQRS\QueryBusInterface;
 use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class GetPokemon extends AbstractController
 {
     public function __construct(
-        protected QueryBusInterface $queryBus
+        protected QueryBusInterface $queryBus,
+        protected SerializerInterface $serializer,
     ) {
-        parent::__construct();
     }
 
     public function __invoke(string $name): JsonResponse

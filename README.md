@@ -5,6 +5,7 @@ A simple Pokedex API, using
 * Doctrine + MySql
 * DDD and CQRS pattern
 * JWT Authentication
+* Behat and JSON schema validation
 
 ## How to use
 ### Install
@@ -20,7 +21,7 @@ alias sf='php bin/console --env=dev' \
     && sf pokedex:load:pokemons \
     && sf pokedex:load:users \
     && sf lexik:jwt:generate-keypair \
-    && symfony server:start
+    && APP_ENV=dev symfony server:start
 ```
  * And go to `http://127.0.0.1:8000/pokemons`.
 
@@ -57,7 +58,7 @@ Or see routes below:
   * `vendor/bin/psalm`
 
 #### Tests
-* Launch tests : `vendor/bin/behat`  # (/!\ in `AbstractController:20`, remove `../`, error in JMS serializer)
+* Launch tests : `vendor/bin/behat`
 
 ### TODO
 - [ ] Functional tests
@@ -67,5 +68,5 @@ Or see routes below:
   - [ ] PUT
   - [ ] DELETE
 - [ ] Add docker
-- [ ] Remove JMS serializer to use symfony's
+- [x] Remove JMS serializer to use symfony's
 - [ ] Request parameterss validation service

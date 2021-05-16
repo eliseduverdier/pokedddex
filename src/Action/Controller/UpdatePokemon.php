@@ -11,6 +11,7 @@ use App\Infra\Repository\PokemonRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -20,9 +21,9 @@ class UpdatePokemon extends AbstractController
         protected PokemonRepository $repository,
         protected ValidatorInterface $validator,
         protected CommandBusInterface $commandBus,
-        protected QueryBusInterface $queryBus
+        protected QueryBusInterface $queryBus,
+        protected SerializerInterface $serializer
     ) {
-        parent::__construct();
     }
 
     public function __invoke(string $name, Request $request): JsonResponse

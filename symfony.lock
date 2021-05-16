@@ -145,26 +145,6 @@
             "config/packages/fos_rest.yaml"
         ]
     },
-    "jms/metadata": {
-        "version": "2.5.0"
-    },
-    "jms/serializer": {
-        "version": "3.12.2"
-    },
-    "jms/serializer-bundle": {
-        "version": "3.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "3.0",
-            "ref": "384cec52df45f3bfd46a09930d6960a58872b268"
-        },
-        "files": [
-            "config/packages/dev/jms_serializer.yaml",
-            "config/packages/jms_serializer.yaml",
-            "config/packages/prod/jms_serializer.yaml"
-        ]
-    },
     "justinrainbow/json-schema": {
         "version": "5.2.10"
     },
@@ -227,9 +207,6 @@
     },
     "phpspec/prophecy": {
         "version": "1.13.0"
-    },
-    "phpstan/phpdoc-parser": {
-        "version": "0.4.14"
     },
     "phpstan/phpstan": {
         "version": "0.12.84"
@@ -530,6 +507,9 @@
     },
     "symfony/security-http": {
         "version": "v5.2.6"
+    },
+    "symfony/serializer": {
+        "version": "v5.2.7"
     },
     "symfony/service-contracts": {
         "version": "v2.2.0"

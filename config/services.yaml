@@ -12,7 +12,7 @@ services:
             - '../src/Kernel.php'
 
     App\Action\Controller\:
-        resource: '../src/UI/Controller/'
+        resource: '../src/Action/Controller/'
         tags: ['controller.service_arguments']
 
     _instanceof:

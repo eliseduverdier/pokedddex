@@ -7,7 +7,7 @@ use App\Domain\CQRS\CommandInterface;
 final class CreatePokemonCommand implements CommandInterface
 {
     public function __construct(
-        public int $number,
+        public ?int $number,
         public string $name,
         public string $type1,
         public string $type2,
