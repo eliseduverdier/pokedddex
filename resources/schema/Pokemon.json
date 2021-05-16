@@ -1,0 +1,19 @@
+{
+    "type": "object",
+    "properties": {
+        "number": { "type": "integer" },
+        "name": { "type": "string" },
+        "type1": { "type": "string" },
+        "type2": { "type": "string" },
+        "total": { "type": "integer" },
+        "hp": { "type": "integer" },
+        "attack": { "type": "integer" },
+        "defense": { "type": "integer" },
+        "specialAttack": { "type": "integer" },
+        "specialDefense": { "type": "integer" },
+        "speed": { "type": "integer" },
+        "generation": { "type": "integer" },
+        "legendary": { "type": "boolean" }
+    },
+    "required": ["number","name","type1","hp","attack"]
+}

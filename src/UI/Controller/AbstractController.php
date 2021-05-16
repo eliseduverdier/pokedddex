@@ -17,7 +17,7 @@ abstract class AbstractController
     public function __construct()
     {
         $this->serializer = SerializerBuilder::create()
-            ->addMetadataDir('../resources/config/serializer/')
+            ->addMetadataDir('../resources/config/serializer/') // TODO fix JMS config error in services/, should not load metadata here !!
             ->build();
     }
 

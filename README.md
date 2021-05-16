@@ -30,15 +30,6 @@ sf c:c && sf doc:da:drop --force && sf doc:da:create && sf doc:sc:up --force && 
 ```
 -->
 
-### Code quality
-* Check code style : `vendor/bin/phpcs src/`
-* Analyse code :
-  * `vendor/bin/phpstan analyse -c phpstan.neon`  (level 5)
-  * `vendor/bin/psalm`
-<!--
-* Launch tests : `vendor/bin/phpunit`
--->
-
 ### Try it
 
 <!--[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12e1b427a49cce57fc1f)-->
@@ -57,7 +48,24 @@ Or see routes below:
 | Update a pokemon     | `PUT /pokemon/{name} -d '{"name": "Coucou", "type1": "Fire", "type2": "Ice", "total": 1, "hp": 1, "attack": 1, "defense": 1, "special_attack": 1, "special_defense": 1, "speed": 1, "generation": 1, "legendary": false}'` |
 | Delete a pokemon     | `DELETE /pokemon/{name}` |
 
-### TODO
 
-[ ] Add tests
-[ ] Add docker
+### Quality
+#### Code style
+* Check code style : `vendor/bin/phpcs src/`
+* Analyse code :
+  * `vendor/bin/phpstan analyse -c phpstan.neon`  (level 5)
+  * `vendor/bin/psalm`
+
+#### Tests
+* Launch tests : `vendor/bin/behat`  # (/!\ in `AbstractController:20`, remove `../`, error in JMS serializer)
+
+### TODO
+- [ ] Functional tests
+  - [x] GET
+  - [ ] Fixtures and separate database
+  - [ ] POST
+  - [ ] PUT
+  - [ ] DELETE
+- [ ] Add docker
+- [ ] Remove JMS serializer to use symfony's
+- [ ] Request parameterss validation service

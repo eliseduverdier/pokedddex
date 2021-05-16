@@ -2,8 +2,8 @@ default:
     suites:
         default:
             contexts:
-                - App\Tests\Functional\Context\DemoContext
+                - App\Tests\Functional\Context\RequestContext
 
     extensions:
         FriendsOfBehat\SymfonyExtension:
-            bootstrap: 'config/test/behat/bootstrap.php'
+            bootstrap: 'tests/Functional/bootstrap.php'

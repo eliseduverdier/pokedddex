@@ -127,7 +127,7 @@
             "behat.yml.dist",
             "config/services_test.yaml",
             "tests/features/pokemons.feature",
-            "tests/Functional/Context/DemoContext.php"
+            "tests/Functional/Context/RequestContext.php"
         ]
     },
     "friendsofphp/proxy-manager-lts": {
@@ -164,6 +164,9 @@
             "config/packages/jms_serializer.yaml",
             "config/packages/prod/jms_serializer.yaml"
         ]
+    },
+    "justinrainbow/json-schema": {
+        "version": "5.2.10"
     },
     "laminas/laminas-code": {
         "version": "4.1.0"
