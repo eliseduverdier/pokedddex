@@ -1,8 +1,6 @@
 App\Domain\Entity\Pokemon:
-  read_only: true
-  properties:
-    id:
-      exclude: true
+  attributes:
+    
     createdAt:
       type: DateTime
     updatedAt:

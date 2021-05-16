@@ -4,21 +4,33 @@ namespace App\UI\Controller;
 
 use Assert\LazyAssertionException;
 use Assert\InvalidArgumentException;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-abstract class AbstractController
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
+abstract class AbstractController 
 {
-    /** @var \JMS\Serializer\Serializer */
     protected $serializer;
 
-    public function __construct()
+    // /** @var Logger */
+    // protected $logger;
+
+    public function __construct(
+        //string $serializerConfigPath = '../resources/config/serializer/'
+    )
     {
-        $this->serializer = SerializerBuilder::create()
-            ->addMetadataDir('../resources/config/serializer/')
-            ->build();
+        $normalizer = new ObjectNormalizer();
+        $encoder = new JsonEncoder();
+
+        $this->serializer = new Serializer([$normalizer], [$encoder]);
+        // $this->serializer = SerializerBuilder::create()
+        //     //->addMetadataDir($serializerConfigPath)
+        //     ->build();
     }
 
     /**

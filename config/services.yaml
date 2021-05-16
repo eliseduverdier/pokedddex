@@ -1,4 +1,5 @@
 parameters:
+  serializerConfigPath: '%kernel.project_dir%/resources/config/serializer/'
 
 services:
     _defaults:
