@@ -8,6 +8,15 @@
     "beberlei/assert": {
         "version": "v3.3.0"
     },
+    "behat/behat": {
+        "version": "v3.8.1"
+    },
+    "behat/gherkin": {
+        "version": "v4.8.0"
+    },
+    "behat/transliterator": {
+        "version": "v1.3.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99.1"
     },
@@ -105,6 +114,21 @@
     },
     "felixfbecker/language-server-protocol": {
         "version": "1.5.1"
+    },
+    "friends-of-behat/symfony-extension": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "3d21344765fd3440a85bdd27d4cada186ec628bd"
+        },
+        "files": [
+            "behat.yml.dist",
+            "config/services_test.yaml",
+            "tests/features/pokemons.feature",
+            "tests/Functional/Context/DemoContext.php"
+        ]
     },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
