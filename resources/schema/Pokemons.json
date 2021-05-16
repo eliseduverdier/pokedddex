@@ -21,7 +21,7 @@
                 "generation": { "type": "integer" },
                 "legendary": { "type": "boolean" }
             },
-            "required": ["number","name","type1","hp","attack"]
+            "required": ["number", "name", "type1", "hp", "attack"]
         }
     }
 }

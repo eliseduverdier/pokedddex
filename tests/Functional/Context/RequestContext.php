@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Context;
 
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\PyStringNode;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
-
 use JsonSchema\Validator;
 
 /**
@@ -25,17 +25,41 @@ class RequestContext implements Context
     /** @var Response|null */
     private $response;
 
+    /** @var string */
+    private $token;
+
     public function __construct(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
     }
 
     /**
-     * @When I send a request to :path
+     * @When I go to :path
      */
-    public function iSendARequestTo(string $path): void
+    public function iSendARequestTo(string $path, string $method = Request::METHOD_GET): void
     {
-        $this->response = $this->kernel->handle(Request::create($path, 'GET'));
+        $this->response = $this->kernel->handle(Request::create($path, $method));
+    }
+
+    /**
+     * @When I do a :method request to :path with data:
+     */
+    public function iSendARequestWithDataTo(string $path, string $method, PyStringNode $json): void
+    {
+        $this->response = $this->kernel->handle(
+            Request::create(
+                $path,      // $uri
+                $method,    // $method
+                [],         // $parameters
+                [],         // $cookies
+                [],         // $files
+                [           // $server
+                    'HTTP_AUTHORIZATION' => 'Bearer ' . $this->token,
+                    'CONTENT_TYPE' => 'application/json',
+                ],
+                $json->getRaw()
+            )
+        );
     }
 
     /**
@@ -63,18 +87,32 @@ class RequestContext implements Context
      */
     public function theResponseContentTypeShouldBe(string $contentType): void
     {
-        $this->theResponseHeaderShouldBe('content-type', $contentType);
+        $this->theResponseHeaderShouldBe('Content-type', $contentType);
     }
 
     /**
-     * @Then the status code should be :status
+     * @Given I am authenticated as :username with :password password
      */
-    private function theResponseHeaderShouldBe(string $name, string $value): void
+    public function iAmAuthenticatedAs(string $username, string $password): void
     {
-        $headerValue = $this->response->headers->get($name);
-        if ($headerValue !== $value) {
-            throw new \UnexpectedValueException("Expected header $name: $value but got $headerValue");
+        $request = Request::create(
+            '/login_check',
+            Request::METHOD_POST,
+            [],
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode(['username' => $username, 'password' => $password])
+        );
+
+        $response = $this->kernel->handle($request);
+
+        $content = json_decode($response->getContent(), true);
+
+        if (!is_array($content)) {
+            throw new \InvalidArgumentException('Invalid token response');
         }
+        $this->token = $content['token'];
     }
 
     /**
@@ -115,6 +153,15 @@ class RequestContext implements Context
                     . "\n"
                     . implode("\n", $errors)
             );
+        }
+    }
+
+
+    private function theResponseHeaderShouldBe(string $name, string $value): void
+    {
+        $headerValue = $this->response->headers->get($name);
+        if ($headerValue !== $value) {
+            throw new \UnexpectedValueException("Expected header $name: $value but got $headerValue");
         }
     }
 }
