@@ -3,19 +3,18 @@ App\Domain\Entity\User:
     table: user
     id:
       id:
-        type: uuid
-        generator:
-            strategy: CUSTOM
-        customIdGenerator:
-            class: Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator
+        type: string
+        # generator:
+        #     strategy: CUSTOM
+        # customIdGenerator:
+        #     class: Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator
     fields:
       username:
         type: string
         unique: true
         length: 128
-      password: 
+      password:
         type: string
         length: 128
       roles:
         type: json
-      

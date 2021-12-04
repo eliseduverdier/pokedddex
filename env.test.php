@@ -6,6 +6,7 @@ return array(
     'APP_ENV' => 'test',
     'APP_SECRET' => '$ecretf0rt3st',
     'DATABASE_URL' => 'mysql://root:root1234@127.0.0.1:3306/pokemons_tests?serverVersion=5.7',
+    'DATABASE_URL' => 'postgresql://user:password@127.0.0.1:5432/pokemons_tests?serverVersion=13&charset=utf8',
     'JWT_SECRET_KEY' => '%kernel.project_dir%/config/jwt/private.pem',
     'JWT_PUBLIC_KEY' => '%kernel.project_dir%/config/jwt/public.pem',
     'JWT_PASSPHRASE' => '9585282bfe9a5ed0dbddb40cc663e5f7',

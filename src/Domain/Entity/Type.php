@@ -20,6 +20,7 @@ class Type
 
     public function __construct(string $name)
     {
+        $this->setId();
         $this->name = $name;
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();

@@ -3,11 +3,12 @@
 namespace App\Domain\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * Class User
  */
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use IdTrait;
 
@@ -19,6 +20,11 @@ class User implements UserInterface
 
     /** @var array */
     protected $roles = [];
+
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
+    }
 
     public function getUsername(): string
     {
@@ -54,7 +60,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return (string) $this->password;
     }

@@ -4,15 +4,15 @@ App\Domain\Entity\Pokemon:
     table: pokemon
     id:
       id:
-        type: uuid
-        generator:
-            strategy: CUSTOM
-        customIdGenerator:
-            class: Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator
+        type: string
+        # generator:
+        #     strategy: CUSTOM
+        # customIdGenerator:
+        #     class: Symfony\Bridge\Doctrine\IdGenerator\UuidV4Generator
     fields:
       number:
         type: integer
-      name: 
+      name:
         type: string
         length: 128
         unique: true

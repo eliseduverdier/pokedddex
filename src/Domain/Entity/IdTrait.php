@@ -4,16 +4,16 @@ namespace App\Domain\Entity;
 
 use Symfony\Component\Uid\Uuid;
 
-/**
- * Add an ID to objects
- */
 trait IdTrait
 {
-    /** Uuid generated for the ORM */
     private $id;
 
-    /** @return Uuid */
-    public function getId(): Uuid
+    public function setId(): void
+    {
+        $this->id = (Uuid::v4())->toRfc4122();
+    }
+
+    public function getId(): string
     {
         return $this->id;
     }

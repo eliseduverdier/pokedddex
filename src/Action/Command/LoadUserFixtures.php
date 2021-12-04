@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+// use Symfony\Component\Security\Core\Encoder\UserPasswordHasherInterface;
 
 class LoadUserFixtures extends Command
 {
@@ -20,7 +20,7 @@ class LoadUserFixtures extends Command
 
     public function __construct(
         protected EntityManagerInterface $em,
-        protected UserPasswordEncoderInterface $passwordEncoder
+        // protected UserPasswordHasherInterface $hasher
     ) {
         parent::__construct();
     }
@@ -53,7 +53,8 @@ class LoadUserFixtures extends Command
             $user = new User();
             $user->setUsername($email);
             $user->setPassword(
-                $this->passwordEncoder->encodePassword($user, $password)
+                'ccc'
+                // $this->hasher->hashPassword($user, $password)
             );
             $this->em->persist($user);
         }

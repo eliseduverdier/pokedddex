@@ -1,9 +1,0 @@
-parameters:
-    level: 5
-    paths:
-        - src
-
-    ignoreErrors:
-        - '#Empty array passed to foreach#'
-
-    checkGenericClassInNonGenericObjectType: false

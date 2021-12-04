@@ -2,6 +2,7 @@
 
 namespace App\Domain\Entity;
 
+
 /**
  * Class Pokemon
  */
@@ -31,6 +32,7 @@ class Pokemon
         private int $generation,
         private bool $legendary
     ) {
+        $this->setId();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
     }
