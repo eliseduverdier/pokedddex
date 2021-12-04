@@ -1,0 +1,37 @@
+paths: [ src ]
+
+layers:
+    - name: App
+      collectors:
+          - type: directory
+            regex: src/App/.*
+
+    - name: Domain
+      collectors:
+          - type: directory
+            regex: src/Domain/.*
+
+    - name: Infra
+      collectors:
+          - type: directory
+            regex: src/Infra/.*
+
+    - name: Action
+      collectors:
+          - type: directory
+            regex: src/Action/.*
+
+    - name: Vendor
+      collectors:
+          - { type: className, regex: ^Doctrine\\ }
+          - { type: className, regex: ^Symfony\\Component\\ }
+
+    - name: Helpers
+      collectors:
+          - { type: className, regex: ^Symfony\\Component\\Uid\\ }
+
+ruleset:
+    Domain: [ Helpers ]
+    App: [ Domain, Helpers, Infra ]
+    Infra:  [ Domain, App, Infra, Vendor, Helpers ]
+    Action: [ Domain, App, Infra, Vendor, Helpers ]

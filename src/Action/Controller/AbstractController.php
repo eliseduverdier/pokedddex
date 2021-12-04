@@ -25,7 +25,7 @@ abstract class AbstractController
             $output = $this->buildErrorsArray($errors);
         } else {
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
-            $output = 'Unknown error';
+            $output = $errors->getMessage() ?? 'Unknown error';
             // TODO Error should be logged
         }
 
