@@ -4,7 +4,7 @@ namespace App\Infra\Serializer;
 
 use App\App\Command\DeletePokemonCommand;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class DeleteCommandNormalizer implements NormalizerInterface, DenormalizerInterface
 {
