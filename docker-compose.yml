@@ -11,6 +11,7 @@ services:
         STABILITY: ${STABILITY:-stable}
     restart: unless-stopped
     volumes:
+      - ./app:/app:cached
       - php_socket:/var/run/php
     healthcheck:
       interval: 10s
