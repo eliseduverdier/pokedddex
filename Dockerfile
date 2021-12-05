@@ -6,8 +6,11 @@
 ARG PHP_VERSION=8.0
 ARG CADDY_VERSION=2
 
+# =============================================================
 # "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine AS symfony_php
+
+WORKDIR /app
 
 # persistent / runtime deps
 RUN apk add --no-cache \
@@ -80,21 +83,6 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 
 WORKDIR /srv/app/app
 
-# Allow to choose skeleton
-ARG SKELETON="symfony/skeleton"
-ENV SKELETON ${SKELETON}
-
-# Allow to use development versions of Symfony
-ARG STABILITY="stable"
-ENV STABILITY ${STABILITY}
-
-# Allow to select skeleton version
-ARG SYMFONY_VERSION=""
-ENV SYMFONY_VERSION ${SYMFONY_VERSION}
-
-# Download the Symfony skeleton and leverage Docker cache layers
-RUN composer create-project "${SKELETON} ${SYMFONY_VERSION}" . --stability=$STABILITY --prefer-dist --no-dev --no-progress --no-interaction; \
-	composer clear-cache
 
 ###> recipes ###
 ###> doctrine/doctrine-bundle ###
@@ -105,7 +93,7 @@ RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
-COPY . .
+COPY ./app .
 
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
@@ -114,24 +102,20 @@ RUN set -eux; \
 	composer symfony:dump-env prod; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync
-VOLUME /srv/app/var
+VOLUME /srv/app/app/var
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 
+# ==========================================================================
+
 FROM caddy:${CADDY_VERSION}-builder-alpine AS symfony_caddy_builder
 
-RUN xcaddy build \
-	--with github.com/dunglas/mercure \
-	--with github.com/dunglas/mercure/caddy \
-	--with github.com/dunglas/vulcain \
-	--with github.com/dunglas/vulcain/caddy
 
 FROM caddy:${CADDY_VERSION} AS symfony_caddy
 
 WORKDIR /srv/app/app
 
-COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
 COPY --from=symfony_caddy_builder /usr/bin/caddy /usr/bin/caddy
-COPY --from=symfony_php /srv/app/public public/
+COPY --from=symfony_php /srv/app/app/public public/
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
