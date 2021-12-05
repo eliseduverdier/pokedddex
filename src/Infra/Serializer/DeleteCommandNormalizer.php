@@ -9,12 +9,13 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class DeleteCommandNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     /**
-     * @param DeletePokemonCommand $command
+     * @param DeletePokemonCommand $object
+     * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function normalize($command, string $format = null, array $context = []): array
+    public function normalize($object, string $format = null, array $context = []): array
     {
         return [
-            $command->pokemon
+            $object->pokemon
         ];
     }
 

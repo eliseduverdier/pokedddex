@@ -7,6 +7,7 @@ use App\Domain\CQRS\QueryBusInterface;
 use App\Infra\Repository\PokemonRepository;
 use App\Infra\Repository\TypeRepository;
 use Assert\Assert;
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,11 +37,13 @@ class ListPokemons extends AbstractController
                 ->nullOr()->isArray()
                 ->verifyNow();
 
+            /** @psalm-suppress PossiblyInvalidIterator */
+            /** @var array<string, string> $sortParams */
             $sortParams = $request->query->get('sort') ?? [];
             foreach ($sortParams as $key => $value) {
                 Assert::lazy()
                     ->that($key)->inArray($acceptedAttributes)
-                    ->that($value)->inArray(['asc', 'desc'])
+                    ->that($value)->inArray([Criteria::ASC, Criteria::DESC])
                     ->verifyNow();
             }
         } catch (\Exception $e) {

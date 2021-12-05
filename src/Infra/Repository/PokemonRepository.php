@@ -17,14 +17,16 @@ class PokemonRepository extends ServiceEntityRepository
 
     public function filterBy(
         array $searchParams = [],
-        array $sortParams = [],
-        int $page = 1
+        ?array $sortParams = [],
+        ?int $page = 1
     ): array {
         $qb = $this->createQueryBuilder('p')->select('p');
 
+        /** @var array<string, string> $sortParams */
         foreach ($searchParams as $field => $value) {
             switch ($field) {
                 case 'type':
+                    /** @psalm-suppress TooManyArguments thanks for func_get_args */
                     $qb
                         ->leftJoin('p.type1', 't1')
                         ->leftJoin('p.type2', 't2')

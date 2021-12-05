@@ -9,32 +9,33 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class PokemonNormalizer implements NormalizerInterface
 {
     /**
-     * @param Pokemon $pokemon
+     * @param Pokemon $object
+     * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function normalize($pokemon, string $format = null, array $context = []): array
+    public function normalize($object, string $format = null, array $context = []): array
     {
         return [
             // basic info
-            'number' => $pokemon->getNumber(),
-            'name' => $pokemon->getName(),
-            'legendary' => $pokemon->getLegendary(),
+            'number' => $object->getNumber(),
+            'name' => $object->getName(),
+            'legendary' => $object->getLegendary(),
 
             // relation
-            'type1' => $pokemon->getType1()->getName(),
-            'type2' => $pokemon->getType2() ? $pokemon->getType2()->getName() : null,
+            'type1' => $object->getType1()->getName(),
+            'type2' => $object->getType2() ? $object->getType2()?->getName() : null,
 
             // stats
-            'total' => $pokemon->getTotal(),
-            'hp' => $pokemon->getHp(),
-            'attack' => $pokemon->getAttack(),
-            'defense' => $pokemon->getDefense(),
-            'specialAttack' => $pokemon->getSpecialAttack(),
-            'specialDefense' => $pokemon->getSpecialDefense(),
-            'speed' => $pokemon->getSpeed(),
-            'generation' => $pokemon->getGeneration(),
+            'total' => $object->getTotal(),
+            'hp' => $object->getHp(),
+            'attack' => $object->getAttack(),
+            'defense' => $object->getDefense(),
+            'specialAttack' => $object->getSpecialAttack(),
+            'specialDefense' => $object->getSpecialDefense(),
+            'speed' => $object->getSpeed(),
+            'generation' => $object->getGeneration(),
 
             // metadata
-            'createdAt' => $pokemon->getCreatedAt()->format('Y-m-d'),
+            'createdAt' => $object->getCreatedAt()->format('Y-m-d'),
         ];
     }
 

@@ -6,7 +6,7 @@ use Symfony\Component\Uid\Uuid;
 
 trait IdTrait
 {
-    private $id;
+    private string $id;
 
     public function setId(): void
     {

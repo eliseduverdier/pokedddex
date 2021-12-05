@@ -6,5 +6,5 @@ use Symfony\Component\Validator\Constraint;
 
 class Type extends Constraint
 {
-    public $message = 'The type "{{ type }}" is not an available type. Please choose among {{ available_types }}';
+    public string $message = 'The type "{{ type }}" is not an available type. Please choose among {{ available_types }}';
 }
