@@ -10,24 +10,25 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 class CreateCommandNormalizer implements NormalizerInterface, DenormalizerInterface
 {
     /**
-     * @param CreatePokemonCommand $command
+     * @param CreatePokemonCommand $object
+     * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function normalize($command, string $format = null, array $context = []): array
+    public function normalize($object, string $format = null, array $context = []): array
     {
         return [
-            'number' => $command->number,
-            'name' => $command->name,
-            'type1' => $command->type1,
-            'type2' => $command->type2,
-            'total' => $command->total,
-            'hp' => $command->hp,
-            'attack' => $command->attack,
-            'defense' => $command->defense,
-            'specialAttack' => $command->specialAttack,
-            'specialDefense' => $command->specialDefense,
-            'speed' => $command->speed,
-            'generation' => $command->generation,
-            'legendary' => $command->legendary,
+            'number' => $object->number,
+            'name' => $object->name,
+            'type1' => $object->type1,
+            'type2' => $object->type2,
+            'total' => $object->total,
+            'hp' => $object->hp,
+            'attack' => $object->attack,
+            'defense' => $object->defense,
+            'specialAttack' => $object->specialAttack,
+            'specialDefense' => $object->specialDefense,
+            'speed' => $object->speed,
+            'generation' => $object->generation,
+            'legendary' => $object->legendary,
         ];
     }
 

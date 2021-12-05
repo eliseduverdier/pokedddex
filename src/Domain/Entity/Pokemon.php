@@ -68,37 +68,31 @@ class Pokemon
         $this->updatedAt = new \DateTime();
     }
 
-    /** @return int */
     public function getNumber(): int
     {
         return $this->number;
     }
 
-    /** @return string */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /** @return Type|null */
-    public function getType1(): ?Type
+    public function getType1(): Type
     {
         return $this->type1;
     }
 
-    /** @return string */
     public function getType1Name(): string
     {
         return $this->type1->getName();
     }
 
-    /** @return Type|null */
     public function getType2(): ?Type
     {
         return $this->type2;
     }
 
-    /** @return string|null */
     public function getType2Name(): ?string
     {
         return $this->type2
@@ -106,67 +100,56 @@ class Pokemon
             : '';
     }
 
-    /** @return int */
     public function getTotal(): int
     {
         return $this->total;
     }
 
-    /** @return int */
     public function getHp(): int
     {
         return $this->hp;
     }
 
-    /** @return int */
     public function getAttack(): int
     {
         return $this->attack;
     }
 
-    /** @return int */
     public function getDefense(): int
     {
         return $this->defense;
     }
 
-    /** @return int */
     public function getSpecialAttack(): int
     {
         return $this->specialAttack;
     }
 
-    /** @return int */
     public function getSpecialDefense(): int
     {
         return $this->specialDefense;
     }
 
-    /** @return int */
     public function getSpeed(): int
     {
         return $this->speed;
     }
 
-    /** @return int */
     public function getGeneration(): int
     {
         return $this->generation;
     }
 
-    /** @return bool */
     public function getLegendary(): bool
     {
         return $this->legendary;
     }
 
-    /** @return \DateTime */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /** @return \DateTime */
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;

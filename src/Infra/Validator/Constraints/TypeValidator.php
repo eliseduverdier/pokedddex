@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * Used to validate if the type exists
+ * @psalm-suppress PropertyNotSetInConstructor
+ * @psalm-suppress MoreSpecificImplementedParamType
  */
 class TypeValidator extends ConstraintValidator
 {
@@ -17,6 +19,7 @@ class TypeValidator extends ConstraintValidator
     ) {
     }
 
+    /** @param string $value */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof Type) {

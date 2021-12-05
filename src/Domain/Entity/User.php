@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * Class User
+ * @psalm-suppress MissingConstructor
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -62,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): ?string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self

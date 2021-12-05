@@ -9,6 +9,8 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * Used to validate the {Create,Update}PokemonCommand
+ * @psalm-suppress PropertyNotSetInConstructor
+ * @psalm-suppress MoreSpecificImplementedParamType
  */
 class UniqueNameValidator extends ConstraintValidator
 {
@@ -17,6 +19,7 @@ class UniqueNameValidator extends ConstraintValidator
     ) {
     }
 
+    /** @param string $value */
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof UniqueName) {

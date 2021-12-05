@@ -76,7 +76,7 @@ class LoadPokemonFixtures extends Command
             $pokemon = (new Pokemon(
                 $line['#'],
                 $line['Name'],
-                $typeEntities[$line['Type 1']] ?? null,
+                $typeEntities[$line['Type 1']],
                 $typeEntities[$line['Type 2']] ?? null,
                 $line['Total'],
                 $line['HP'],
