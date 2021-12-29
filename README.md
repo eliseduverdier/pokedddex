@@ -66,15 +66,3 @@ Or see routes below:
 <!-- - Launch tests : `vendor/bin/phpunit-bridge` -->
 
 - Launch tests : `vendor/bin/behat`
-
-### TODO
-
-- [ ] Functional tests
-  - [x] GET
-  - [ ] Fixtures and separate database
-  - [ ] POST
-  - [ ] PUT
-  - [ ] DELETE
-- [ ] Add docker
-- [x] Remove JMS serializer to use symfony's
-- [ ] Request parameterss validation service
