@@ -1,52 +1,36 @@
-# pokedex
+# 🐛 Poke*ddd*ex
 
 A simple Pokedex API, using
 
-- PHP 8.0
-- Doctrine + Postgre
-- DDD & CQRS pattern
-- JWT Authentication
-- Behat
+-   DDD & CQRS pattern
+-   PHP 8.0
+-   Symfony 6.0
+-   Doctrine + Postgre
+-   JWT Authentication
+-   Behat + SQLite
 
-## How to use
-
-### Install
-
-- `git clone git@github.com:eliseduverdier/pokedex.git && cd pokedex`
-- `cp .env{,local}`
-- Enter the following commands (TODO makefile):
+### 🏗️ Install
 
 ```shell
-alias sf='php bin/console --env=dev' \
-    && composer install \
-    && sf doctrine:database:create \
-    && sf doctrine:schema:update --force \
-    && sf pokedex:load:pokemons \
-    && sf pokedex:load:users \
-    && sf lexik:jwt:generate-keypair \
-    && APP_ENV=dev symfony server:start
+git clone git@github.com:eliseduverdier/pokedddex.git && cd pokedddex
+make start
+make vendor
+make db-pokemons
+make jwt
 ```
 
-- And go to `http://127.0.0.1:8000/pokemons`.
+-   And go to `http://127.0.0.1:80/pokemons`.
 
-<!-- * To force reload, use:
-```shell
-sf c:c && sf doc:da:drop --force && sf doc:da:create && sf doc:sc:up --force && sf pok:l:p && sf pok:l:u
-```
--->
+### 👾 Try it
 
-### Try it
-
-<!--[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/12e1b427a49cce57fc1f)-->
-
-[▶️ Check documentation on postman](https://documenter.getpostman.com/view/15405036/TzJuAHo5)
+[**Check documentation on postman**](https://documenter.getpostman.com/view/15405036/TzJuAHo5)
 
 First, call the `login` route, then put the token in the `Auth` tab to freely use the protected routes.
 
 Or see routes below:
 | | cURL command |
 |----------------------|--------------|
-| Login | `POST /login_check -d '{"username": "user3@example.com", "password": "1234567890"}'` |
+| Login | `POST /login_check -d '{"username": "user1@example.com", "password": "1234567890"}'` |
 | List all pokemons | `GET /pokemons ? name=abc & type=Fire & sort[generation]=desc & sort[name]=asc & page=1` |
 | List all types | `GET /types` |
 | Get a pokemon | `GET /pokemon/{name}` |
@@ -58,11 +42,9 @@ Or see routes below:
 
 #### Code style
 
-- Check code style : `vendor/bin/phpcs src/`
-- Analyse code :`vendor/bin/psalm`
+-   Check code style : `make php-cs-fixer`
+-   Analyse code :`make psalm`
 
 #### Tests
 
-<!-- - Launch tests : `vendor/bin/phpunit-bridge` -->
-
-- Launch tests : `vendor/bin/behat`
+-   Launch tests : `make behat`
