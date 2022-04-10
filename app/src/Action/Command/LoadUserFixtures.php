@@ -7,12 +7,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-// use Symfony\Component\Security\Core\Encoder\UserPasswordHasherInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class LoadUserFixtures extends Command
 {
-    /** @var array */
-    protected $exampleUsers = [
+    protected array $exampleUsers = [
         'user1@example.com' => '1234567890',
         'user2@example.com' => '1234567890',
         'user3@example.com' => '1234567890',
@@ -20,7 +19,7 @@ class LoadUserFixtures extends Command
 
     public function __construct(
         protected EntityManagerInterface $em,
-        // protected UserPasswordHasherInterface $hasher
+        protected UserPasswordHasherInterface $passwordHasher
     ) {
         parent::__construct();
     }
@@ -51,10 +50,10 @@ class LoadUserFixtures extends Command
     {
         foreach ($this->exampleUsers as $email => $password) {
             $user = new User();
+            $user->setId();
             $user->setUsername($email);
             $user->setPassword(
-                'ccc'
-                // $this->hasher->hashPassword($user, $password)
+                $this->passwordHasher->hashPassword($user, $password)
             );
             $this->em->persist($user);
         }

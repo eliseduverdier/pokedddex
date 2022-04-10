@@ -19,14 +19,9 @@ use JsonSchema\Validator;
  */
 class RequestContext implements Context
 {
-    /** @var KernelInterface */
-    private $kernel;
-
-    /** @var Response|null */
-    private $response;
-
-    /** @var string */
-    private $token;
+    private KernelInterface $kernel;
+    private ?Response $response;
+    private ?string $token;
 
     public function __construct(KernelInterface $kernel)
     {
@@ -42,9 +37,10 @@ class RequestContext implements Context
     }
 
     /**
+     * @When I do a :method request to :path
      * @When I do a :method request to :path with data:
      */
-    public function iSendARequestWithDataTo(string $path, string $method, PyStringNode $json): void
+    public function iSendARequestWithDataTo(string $path, string $method, ?PyStringNode $json = null): void
     {
         $this->response = $this->kernel->handle(
             Request::create(
@@ -57,7 +53,7 @@ class RequestContext implements Context
                     'HTTP_AUTHORIZATION' => 'Bearer ' . $this->token,
                     'CONTENT_TYPE' => 'application/json',
                 ],
-                $json->getRaw()
+                $json?->getRaw() ?? null
             )
         );
     }
@@ -112,7 +108,18 @@ class RequestContext implements Context
         if (!is_array($content)) {
             throw new \InvalidArgumentException('Invalid token response');
         }
+        if (!array_key_exists('token', $content)) {
+            throw new \InvalidArgumentException('No token found, invalid credentials !');
+        }
         $this->token = $content['token'];
+    }
+
+    /**
+     * @Given I am not authenticated
+     */
+    public function iAmNotAuthenticated(): void
+    {
+        $this->token = null;
     }
 
     /**
@@ -133,7 +140,7 @@ class RequestContext implements Context
                 file_get_contents(dirname(__DIR__, 3) . "/resources/schema/$type.json")
             );
         } catch (\Exception $e) {
-            throw new \Exception("Schema /resources/schema/$type.json does not exist");
+            throw new \Exception("Schema /resources/schema/$type.json does not exist or is malformed");
         }
         $apiResponseData = json_decode($this->response->getContent());
 
@@ -149,13 +156,11 @@ class RequestContext implements Context
                 $errors[] = sprintf("[%s] %s", $error['property'], $error['message']);
             }
             throw new \UnexpectedValueException(
-                'JSON does not validate. Violations: '
-                    . "\n"
+                "JSON for $type does not validate. Violations: \n"
                     . implode("\n", $errors)
             );
         }
     }
-
 
     private function theResponseHeaderShouldBe(string $name, string $value): void
     {

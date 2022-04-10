@@ -49,8 +49,8 @@ abstract class AbstractController
         $output = [];
         foreach ($errors as $error) {
             $output[$error->getPropertyPath()] = [
-                'got' => $error->getValue(),
-                'error' => $error->getMessage(),
+                'got' => $error?->getInvalidValue() ?? '',
+                'error' => $error?->getMessage() ?? '',
             ];
         }
         return $output;

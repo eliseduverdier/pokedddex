@@ -1,9 +1,11 @@
 default:
     suites:
         default:
+            paths:    [ '%paths.base%/tests/Functional/features' ]
             contexts:
-                - App\Tests\Functional\Context\RequestContext
+              - App\Tests\Functional\Context\RequestContext
+              - App\Tests\Functional\Context\DatabaseContext
 
     extensions:
         FriendsOfBehat\SymfonyExtension:
-            bootstrap: 'tests/Functional/bootstrap.php'
+            bootstrap: tests/Functional/bootstrap.php

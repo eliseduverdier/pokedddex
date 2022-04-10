@@ -1,6 +1,6 @@
 App\Domain\Entity\User:
     type: entity
-    table: user
+    table: public.user
     id:
       id:
         type: string
